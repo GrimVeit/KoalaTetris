@@ -12,7 +12,8 @@ public class FakeItemMoveModel
     public event Action OnStartMove;
     public event Action<Vector3> OnTeleport;
     public event Action<Vector3> OnMove;
-    public event Action<Vector3> OnEndMove;
+    public event Action OnEndMove;
+    public event Action<Vector3> OnEndMove_Position;
 
     public event Action<ItemData> OnSetData;
 
@@ -48,13 +49,14 @@ public class FakeItemMoveModel
         OnMove?.Invoke(pointerEventData.position);
     }
 
-    public void EndMove(PointerEventData pointerEventData)
+    public void EndMove(PointerEventData pointerEventData, Vector3 vectorItemPosition)
     {
         if (!isActive) return;
 
-        OnEndMove?.Invoke(pointerEventData.position);
-
         Deactivate();
+
+        OnEndMove_Position?.Invoke(vectorItemPosition);
+        OnEndMove?.Invoke();
     }
 
 

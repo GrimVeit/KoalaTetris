@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,6 +59,18 @@ public class FakeItemMovePresenter
     }
 
     #region Input
+
+    public event Action OnEndMove
+    {
+        add { itemMoveModel.OnEndMove += value; }
+        remove { itemMoveModel.OnEndMove -= value; }
+    }
+
+    public event Action<Vector3> OnEndMove_Position
+    {
+        add { itemMoveModel.OnEndMove_Position += value; }
+        remove { itemMoveModel.OnEndMove_Position -= value; }
+    }
 
     public void Activate()
     {

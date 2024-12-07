@@ -4,6 +4,8 @@ using UnityEngine;
 public class MainMenuEntryPoint : MonoBehaviour
 {
     [SerializeField] private Sounds sounds;
+    [SerializeField] private ItemDatas itemDatas;
+    [SerializeField] private Items items;
     //[SerializeField] private UIMainMenuRoot menuRootPrefab;
     [SerializeField] private UIMainMenuRoot sceneRoot;
     private ViewContainer viewContainer;
@@ -13,6 +15,8 @@ public class MainMenuEntryPoint : MonoBehaviour
     private BankPresenter bankPresenter;
 
     private FakeItemMovePresenter fakeItemMovePresenter;
+    private ItemCatalogPresenter itemCatalogPresenter;
+    private ItemSpawnerPresenter itemSpawnerPresenter;
 
     public void Start()
     {
@@ -39,6 +43,12 @@ public class MainMenuEntryPoint : MonoBehaviour
         fakeItemMovePresenter = new FakeItemMovePresenter(new FakeItemMoveModel(), viewContainer.GetView<FakeItemMoveView>());
         fakeItemMovePresenter.Initialize();
 
+        itemCatalogPresenter = new ItemCatalogPresenter(new ItemCatalogModel(itemDatas), viewContainer.GetView<ItemCatalogView>());
+        itemCatalogPresenter.Initialize();
+
+        itemSpawnerPresenter = new ItemSpawnerPresenter(new ItemSpawnerModel(items), viewContainer.GetView<ItemSpawnerView>());
+        itemSpawnerPresenter.Initialize();
+
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.SetParticleEffectProvider(particleEffectPresenter);
         sceneRoot.Initialize();
@@ -47,7 +57,8 @@ public class MainMenuEntryPoint : MonoBehaviour
         ActivateEvents();
 
         sceneRoot.Activate();
-        fakeItemMovePresenter.Activate();
+
+        itemCatalogPresenter.SelectSecondItemData();
     }
 
     private void ActivateTransitionsSceneEvents()
@@ -62,12 +73,24 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     private void ActivateEvents()
     {
+        itemCatalogPresenter.OnSelectCurrentItem_Value += fakeItemMovePresenter.SetData;
+        itemCatalogPresenter.OnSelectCurrentItem_Value += itemSpawnerPresenter.SetData;
 
+        itemCatalogPresenter.OnSelectCurrentItem += fakeItemMovePresenter.Activate;
+
+        fakeItemMovePresenter.OnEndMove_Position += itemSpawnerPresenter.Spawn;
+        fakeItemMovePresenter.OnEndMove += itemCatalogPresenter.SelectSecondItemData;
     }
 
     private void DeactivateEvents()
     {
+        itemCatalogPresenter.OnSelectCurrentItem_Value -= fakeItemMovePresenter.SetData;
+        itemCatalogPresenter.OnSelectCurrentItem_Value -= itemSpawnerPresenter.SetData;
 
+        itemCatalogPresenter.OnSelectCurrentItem -= fakeItemMovePresenter.Activate;
+
+        fakeItemMovePresenter.OnEndMove_Position -= itemSpawnerPresenter.Spawn;
+        fakeItemMovePresenter.OnEndMove -= itemCatalogPresenter.SelectSecondItemData;
     }
 
     private void Dispose()
@@ -90,12 +113,7 @@ public class MainMenuEntryPoint : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            fakeItemMovePresenter.Activate();
-        }
-
-        if (Input.GetKeyUp(KeyCode.X))
-        {
-            fakeItemMovePresenter.Deactivate();
+            itemCatalogPresenter.SelectSecondItemData();
         }
     }
 }

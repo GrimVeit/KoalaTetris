@@ -51,18 +51,23 @@ public class FakeItemMoveView : View
 
     public void Move(Vector3 vector)
     {
-        Debug.Log("MOVE");
+        //Debug.Log("MOVE");
 
         vectorX = Mathf.Clamp(vector.x, leftBoundary.position.x, rightBoundary.position.x);
     }
 
     public void Teleport(Vector3 vector)
     {
-        Debug.Log("TELEPORT");
+        //Debug.Log("TELEPORT");
 
         vectorX = Mathf.Clamp(vector.x, leftBoundary.position.x, rightBoundary.position.x);
 
         fakeItem.Move(vectorX);
+    }
+
+    public void EndMove()
+    {
+
     }
 
     //public void OnPointerDown(PointerEventData eventData)
@@ -93,15 +98,13 @@ public class FakeItemMoveView : View
 
     private void Update()
     {
-        Debug.Log(vectorX);
-
         fakeItem.Move(Mathf.SmoothDamp(fakeItem.Position.x, vectorX, ref velocity.x, smoothTime));
     }
 
     #region Input
 
     public event Action<PointerEventData> OnPointerDown;
-    public event Action<PointerEventData> OnPointerUp;
+    public event Action<PointerEventData, Vector3> OnPointerUp;
     public event Action<PointerEventData> OnPointerMove;
 
     private void PointerDown(PointerEventData eventData)
@@ -111,7 +114,7 @@ public class FakeItemMoveView : View
 
     private void PointerUp(PointerEventData eventData)
     {
-        OnPointerUp?.Invoke(eventData);
+        OnPointerUp?.Invoke(eventData, fakeItem.Position);
     }
 
     private void PointerMove(PointerEventData eventData)

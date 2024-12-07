@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
 public class ItemCatalogPresenter
 {
@@ -15,11 +13,42 @@ public class ItemCatalogPresenter
 
     public void Initialize()
     {
-
+        ActivateEvents();
     }
 
     public void Dispose()
     {
-
+        DeactivateEvents();
     }
+
+    private void ActivateEvents()
+    {
+        catalogModel.OnSelectSecondItemData_Value += catalogView.DisplaySecondItem;
+    }
+
+    private void DeactivateEvents()
+    {
+        catalogModel.OnSelectSecondItemData_Value -= catalogView.DisplaySecondItem;
+    }
+
+    #region Input
+
+    public event Action OnSelectCurrentItem
+    {
+        add { catalogModel.OnSelectCurrentItemData += value; }
+        remove { catalogModel.OnSelectCurrentItemData -= value; }
+    }
+
+    public event Action<ItemData> OnSelectCurrentItem_Value
+    {
+        add { catalogModel.OnSelectCurrentItemData_Value += value; }
+        remove { catalogModel.OnSelectCurrentItemData_Value -= value; }
+    }
+
+    public void SelectSecondItemData()
+    {
+        catalogModel.SelectSecondItemData();
+    }
+
+    #endregion
 }

@@ -4,15 +4,9 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, IIdentify
 {
-    [SerializeField] private Image imageItem;
-    [SerializeField] private RectTransform transformItem;
-
-
-    public void SetData(ItemData itemData)
-    {
-        imageItem.sprite = itemData.Sprite;
-        transformItem.sizeDelta = new Vector2(itemData.Width, itemData.Height);
-    }
+    [SerializeField] private string id;
+    
+    public string GetID() => id;
 }
