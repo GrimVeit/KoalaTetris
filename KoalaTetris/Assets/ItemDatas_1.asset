@@ -43,3 +43,33 @@ MonoBehaviour:
     width: 325.5
     height: 263.5
     chanceDrop: 0.1
+  - id: 6
+    sprite: {fileID: 21300000, guid: e85b4cf033da45343a88364db21470f0, type: 3}
+    width: 375
+    height: 295
+    chanceDrop: 0.05
+  - id: 7
+    sprite: {fileID: 21300000, guid: 5671e2a900d77b948901ef3db057e6f9, type: 3}
+    width: 375
+    height: 417.5
+    chanceDrop: 0
+  - id: 8
+    sprite: {fileID: 21300000, guid: bb2de36f15ebc644f937254895bf3bdf, type: 3}
+    width: 452.5
+    height: 428
+    chanceDrop: 0
+  - id: 9
+    sprite: {fileID: 21300000, guid: aaf1cacdcd563cd43b23c9f666c6eff7, type: 3}
+    width: 610
+    height: 293
+    chanceDrop: 0
+  - id: 10
+    sprite: {fileID: 21300000, guid: 0bcd135f5c6759a4e966985855de67dc, type: 3}
+    width: 524
+    height: 502
+    chanceDrop: 0
+  - id: 11
+    sprite: {fileID: 21300000, guid: 56f5bc206a368a14aa0080b0d0e8fc6b, type: 3}
+    width: 650
+    height: 637
+    chanceDrop: 0

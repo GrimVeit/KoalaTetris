@@ -29,38 +29,21 @@ public class ScorePresenter
 
     private void ActivateEvents()
     {
-        scoreModel.OnAddHealth += scoreView.AddHealth;
-        scoreModel.OnRemoveHealth += scoreView.RemoveHealth;
-
-        scoreModel.OnChangeAllCountCoins += scoreView.DisplayCoins;
-        scoreModel.OnGetCoins += scoreView.DisplayWin;
+        scoreModel.OnChangeRecordScore += scoreView.DisplayRecord;
+        scoreModel.OnChangeCurrentScore += scoreView.DisplayCurrentRecord;
     }
 
     private void DeactivateEvents()
     {
-        scoreModel.OnAddHealth -= scoreView.AddHealth;
-        scoreModel.OnRemoveHealth -= scoreView.RemoveHealth;
-
-        scoreModel.OnChangeAllCountCoins -= scoreView.DisplayCoins;
-        scoreModel.OnGetCoins -= scoreView.DisplayWin;
+        scoreModel.OnChangeRecordScore -= scoreView.DisplayRecord;
+        scoreModel.OnChangeCurrentScore -= scoreView.DisplayCurrentRecord;
     }
 
     #region Input
 
-    public event Action OnGameFailed
+    public void AddScore(int score)
     {
-        add { scoreModel.OnGameFailed += value; }
-        remove { scoreModel.OnGameFailed -= value; }
-    }
-
-    //public void AddScore(EggValue eggValue)
-    //{
-    //    scoreModel.AddScore(eggValue);
-    //}
-
-    public void RemoveHealth()
-    {
-        scoreModel.RemoveHealth();
+        scoreModel.AddScore(score);
     }
 
     #endregion

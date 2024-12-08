@@ -40,6 +40,12 @@ public class ItemsPresenter
         remove { itemsModel.OnAddNewItem -= value; }
     }
 
+    public event Action<int> OnAddScore
+    {
+        add { itemsModel.OnAddScore += value; }
+        remove { itemsModel.OnAddScore -= value; }
+    }
+
     public void AddItem(Item item)
     {
         itemsModel.AddItemToList(item);

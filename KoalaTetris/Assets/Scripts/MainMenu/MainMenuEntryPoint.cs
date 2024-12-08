@@ -19,6 +19,7 @@ public class MainMenuEntryPoint : MonoBehaviour
     private ItemSpawnerPresenter itemSpawnerPresenter;
 
     private ItemsPresenter itemsPresenter;
+    private ScorePresenter scorePresenter;
 
     public void Start()
     {
@@ -29,10 +30,10 @@ public class MainMenuEntryPoint : MonoBehaviour
         viewContainer = sceneRoot.GetComponent<ViewContainer>();
         viewContainer.Initialize();
 
-        //soundPresenter = new SoundPresenter
-        //            (new SoundModel(sounds.sounds, PlayerPrefsKeys.IS_MUTE_SOUNDS),
-        //            viewContainer.GetView<SoundView>());
-        //soundPresenter.Initialize();
+        soundPresenter = new SoundPresenter
+                    (new SoundModel(sounds.sounds, PlayerPrefsKeys.IS_MUTE_SOUNDS),
+                    viewContainer.GetView<SoundView>());
+        soundPresenter.Initialize();
 
         //particleEffectPresenter = new ParticleEffectPresenter
         //    (new ParticleEffectModel(),
@@ -51,29 +52,21 @@ public class MainMenuEntryPoint : MonoBehaviour
         itemSpawnerPresenter = new ItemSpawnerPresenter(new ItemSpawnerModel(items), viewContainer.GetView<ItemSpawnerView>());
         itemSpawnerPresenter.Initialize();
 
-        itemsPresenter = new ItemsPresenter(new ItemsModel(6));
+        itemsPresenter = new ItemsPresenter(new ItemsModel(12));
         itemsPresenter.Initialize();
+
+        scorePresenter = new ScorePresenter(new ScoreModel(soundPresenter), viewContainer.GetView<ScoreView>());
+        scorePresenter.Initialize();
 
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.SetParticleEffectProvider(particleEffectPresenter);
         sceneRoot.Initialize();
 
-        ActivateTransitionsSceneEvents();
         ActivateEvents();
 
         sceneRoot.Activate();
 
         itemCatalogPresenter.SelectSecondItemData();
-    }
-
-    private void ActivateTransitionsSceneEvents()
-    {
-
-    }
-
-    private void DeactivateTransitionsSceneEvents()
-    {
-
     }
 
     private void ActivateEvents()
@@ -87,6 +80,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         fakeItemMovePresenter.OnEndMove += itemCatalogPresenter.SelectSecondItemData;
 
         itemsPresenter.OnAddNewItem += itemSpawnerPresenter.Spawn;
+        itemsPresenter.OnAddScore += scorePresenter.AddScore;
         itemSpawnerPresenter.OnItemSpawned += itemsPresenter.AddItem;
     }
 
@@ -99,17 +93,23 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         fakeItemMovePresenter.OnEndMove_Position -= itemSpawnerPresenter.Spawn;
         fakeItemMovePresenter.OnEndMove -= itemCatalogPresenter.SelectSecondItemData;
+
+        itemsPresenter.OnAddNewItem -= itemSpawnerPresenter.Spawn;
+        itemsPresenter.OnAddScore -= scorePresenter.AddScore;
+        itemSpawnerPresenter.OnItemSpawned -= itemsPresenter.AddItem;
     }
 
     private void Dispose()
     {
-        DeactivateTransitionsSceneEvents();
         DeactivateEvents();
         sceneRoot.Deactivate();
 
-        //sceneRoot?.Dispose();
-        //particleEffectPresenter?.Dispose();
-        //bankPresenter?.Dispose();
+        sceneRoot?.Dispose();
+        fakeItemMovePresenter?.Dispose();
+        itemCatalogPresenter?.Dispose();
+        itemSpawnerPresenter?.Dispose();
+        itemsPresenter?.Dispose();
+        scorePresenter?.Dispose();
     }
 
     private void OnDestroy()

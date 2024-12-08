@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class Item : MonoBehaviour, IIdentify
 {
-    public event Action<Item, Item, Vector3, Quaternion, Quaternion, int> OnGetPunch;
+    public event Action<Item, Item, Vector3, Quaternion, Quaternion, int, int> OnGetPunch;
     public string GetID() => id;
 
     [SerializeField] private string id;
+    [SerializeField] private int score;
 
     private bool isActive = true;
 
@@ -25,7 +26,7 @@ public class Item : MonoBehaviour, IIdentify
 
                     Debug.Log("Punch, contacts -" + collision.contacts.Length);
 
-                    OnGetPunch?.Invoke(this, item, collision.contacts[0].point, transform.rotation, item.transform.rotation, int.Parse(id));
+                    OnGetPunch?.Invoke(this, item, collision.contacts[0].point, transform.rotation, item.transform.rotation, int.Parse(id), score);
                 }
             }
         }
