@@ -18,6 +18,8 @@ public class MainMenuEntryPoint : MonoBehaviour
     private ItemCatalogPresenter itemCatalogPresenter;
     private ItemSpawnerPresenter itemSpawnerPresenter;
 
+    private ItemsPresenter itemsPresenter;
+
     public void Start()
     {
         //sceneRoot = Instantiate(menuRootPrefab);
@@ -48,6 +50,9 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         itemSpawnerPresenter = new ItemSpawnerPresenter(new ItemSpawnerModel(items), viewContainer.GetView<ItemSpawnerView>());
         itemSpawnerPresenter.Initialize();
+
+        itemsPresenter = new ItemsPresenter(new ItemsModel(6));
+        itemsPresenter.Initialize();
 
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.SetParticleEffectProvider(particleEffectPresenter);
@@ -80,6 +85,9 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         fakeItemMovePresenter.OnEndMove_Position += itemSpawnerPresenter.Spawn;
         fakeItemMovePresenter.OnEndMove += itemCatalogPresenter.SelectSecondItemData;
+
+        itemsPresenter.OnAddNewItem += itemSpawnerPresenter.Spawn;
+        itemSpawnerPresenter.OnItemSpawned += itemsPresenter.AddItem;
     }
 
     private void DeactivateEvents()

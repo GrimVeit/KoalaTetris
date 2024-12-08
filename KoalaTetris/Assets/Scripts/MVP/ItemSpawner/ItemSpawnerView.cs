@@ -15,4 +15,11 @@ public class ItemSpawnerView : View
         item.transform.SetPositionAndRotation(vector, prefab.transform.rotation);
         OnItemSpawned?.Invoke(item);
     }
+
+    public void Spawn(Item prefab, Vector3 vector, Quaternion quaternion)
+    {
+        Item item = Instantiate(prefab, spawnParent);
+        item.transform.SetPositionAndRotation(vector, quaternion);
+        OnItemSpawned?.Invoke(item);
+    }
 }

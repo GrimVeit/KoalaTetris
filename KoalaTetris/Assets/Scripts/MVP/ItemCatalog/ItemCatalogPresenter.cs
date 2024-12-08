@@ -14,11 +14,15 @@ public class ItemCatalogPresenter
     public void Initialize()
     {
         ActivateEvents();
+
+        catalogModel.Initialize();
     }
 
     public void Dispose()
     {
         DeactivateEvents();
+
+        catalogModel.Dispose();
     }
 
     private void ActivateEvents()

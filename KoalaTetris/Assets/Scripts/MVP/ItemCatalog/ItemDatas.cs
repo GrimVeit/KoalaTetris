@@ -16,9 +16,11 @@ public class ItemData
     [SerializeField] private Sprite sprite;
     [SerializeField] private float width;
     [SerializeField] private float height;
+    [SerializeField][Range(0, 1)] private float chanceDrop;
 
     public string ID => id;
     public Sprite Sprite => sprite;
     public float Width => width;
     public float Height => height;
+    public float ChanceDrop => chanceDrop;
 }

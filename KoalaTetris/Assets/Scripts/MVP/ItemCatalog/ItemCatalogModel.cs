@@ -12,9 +12,24 @@ public class ItemCatalogModel
     private ItemData currentItemData;
     private ItemData secondItemData;
 
+    private float totalWeightDropChance = 0;
+
     public ItemCatalogModel(ItemDatas itemDatas)
     {
         this.itemDatas = itemDatas;
+    }
+
+    public void Initialize()
+    {
+        for (int i = 0; i < itemDatas.Items.Count; i++)
+        {
+            totalWeightDropChance += itemDatas.Items[i].ChanceDrop;
+        }
+    }
+
+    public void Dispose()
+    {
+
     }
 
     public void SelectSecondItemData()
@@ -22,16 +37,35 @@ public class ItemCatalogModel
         if(secondItemData != null)
         {
             currentItemData = secondItemData;
-            secondItemData = itemDatas.Items[Random.Range(0, itemDatas.Items.Count)];
+            secondItemData = RandomItemData();
         }
         else
         {
-            currentItemData = itemDatas.Items[Random.Range(0, itemDatas.Items.Count)];
-            secondItemData = itemDatas.Items[Random.Range(0, itemDatas.Items.Count)];
+            currentItemData = RandomItemData();
+            secondItemData = RandomItemData();
         }
 
         OnSelectCurrentItemData_Value?.Invoke(currentItemData);
         OnSelectCurrentItemData?.Invoke();
         OnSelectSecondItemData_Value?.Invoke(secondItemData);
+    }
+
+    private ItemData RandomItemData()
+    {
+        float randomValue = Random.Range(0, totalWeightDropChance);
+
+        float calculateValue = 0;
+
+        for (int i = 0; i < itemDatas.Items.Count; i++)
+        {
+            calculateValue += itemDatas.Items[i].ChanceDrop;
+
+            if(randomValue <= calculateValue)
+            {
+                return itemDatas.Items[i];
+            }
+        }
+
+        return null;
     }
 }

@@ -17,23 +17,29 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 4e2fabd507fc8754798e54a3011312b1, type: 3}
     width: 175
     height: 112.7
+    chanceDrop: 0.9
   - id: 1
     sprite: {fileID: 21300000, guid: 82746ed0973d2b048b0c64e9873e642e, type: 3}
     width: 211.75
     height: 140
+    chanceDrop: 0.7
   - id: 2
     sprite: {fileID: 21300000, guid: 18ffb63f4ebf3f2499431c1df19c3abe, type: 3}
     width: 224.2
     height: 190
+    chanceDrop: 0.6
   - id: 3
     sprite: {fileID: 21300000, guid: 67bd3651cac25b8408b8c779a7341237, type: 3}
     width: 272.1
     height: 208
+    chanceDrop: 0.5
   - id: 4
     sprite: {fileID: 21300000, guid: e27778b6fbc729044a7a6052c0221c7a, type: 3}
     width: 325.5
     height: 228.93
+    chanceDrop: 0.4
   - id: 5
     sprite: {fileID: 21300000, guid: 88ed9243b3507d6408d02359b6f3e9bb, type: 3}
     width: 325.5
     height: 263.5
+    chanceDrop: 0.1

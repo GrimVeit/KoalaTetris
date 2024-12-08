@@ -26,6 +26,7 @@ public class ItemSpawnerPresenter
     private void ActivateEvents()
     {
         itemSpawnerModel.OnStartSpawn += itemSpawnerView.Spawn;
+        itemSpawnerModel.OnStartSpawn_Rotate += itemSpawnerView.Spawn;
 
         itemSpawnerView.OnItemSpawned += itemSpawnerModel.OnSpawn;
     }
@@ -33,6 +34,7 @@ public class ItemSpawnerPresenter
     private void DeactivateEvents()
     {
         itemSpawnerModel.OnStartSpawn -= itemSpawnerView.Spawn;
+        itemSpawnerModel.OnStartSpawn_Rotate -= itemSpawnerView.Spawn;
 
         itemSpawnerView.OnItemSpawned -= itemSpawnerModel.OnSpawn;
     }
@@ -53,6 +55,16 @@ public class ItemSpawnerPresenter
     public void Spawn(Vector3 vector)
     {
         itemSpawnerModel.Spawn(vector);
+    }
+
+    public void Spawn(int id, Vector3 vector)
+    {
+        itemSpawnerModel.Spawn(id, vector);
+    }
+
+    public void Spawn(int id, Vector3 vector, Quaternion quaternion)
+    {
+        itemSpawnerModel.Spawn(id, vector, quaternion);
     }
 
     #endregion

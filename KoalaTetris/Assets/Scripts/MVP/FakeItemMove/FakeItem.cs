@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class FakeItem : MonoBehaviour
 {
     public Vector3 Position => transformFakeItem.position;
+    public Vector2 Size => imageFakeItem.rectTransform.sizeDelta;
 
     [SerializeField] private RectTransform transformFakeItem;
     [SerializeField] private Image imageFakeItem;
