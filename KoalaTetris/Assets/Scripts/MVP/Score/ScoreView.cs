@@ -1,11 +1,12 @@
 using DG.Tweening;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class ScoreView : View
 {
-    [SerializeField] private TextMeshProUGUI textCurrentRecord;
-    [SerializeField] private TextMeshProUGUI textRecord;
+    [SerializeField] private List<TextMeshProUGUI> textCurrentRecord;
+    [SerializeField] private List<TextMeshProUGUI> textRecord;
     [SerializeField] private GameObject displayCurrentRecord;
 
     private Vector3 defaultDisplay10Size;
@@ -22,12 +23,18 @@ public class ScoreView : View
 
     public void DisplayRecord(int coins)
     {
-        textRecord.text = coins.ToString();
+        for (int i = 0; i < textRecord.Count; i++)
+        {
+            textRecord[i].text = coins.ToString();
+        }
     }
 
     public void DisplayCurrentRecord(int coins)
     {
-        textCurrentRecord.text = coins.ToString();
+        for (int i = 0; i < textRecord.Count; i++)
+        {
+            textCurrentRecord[i].text = coins.ToString();
+        }
 
         displayCurrentRecord.transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.1f).
                     OnComplete(() => displayCurrentRecord.transform.DOScale(defaultDisplay10Size, 0.2f));

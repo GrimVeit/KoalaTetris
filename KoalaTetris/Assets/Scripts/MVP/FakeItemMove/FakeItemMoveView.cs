@@ -22,6 +22,8 @@ public class FakeItemMoveView : View
 
     public void Initialize()
     {
+        vectorX = (rightBoundary.position.x + leftBoundary.position.x)/2;
+
         fakeItemInput.OnPointerDown_Action += PointerDown;
         fakeItemInput.OnPointerUp_Action += PointerUp;
         fakeItemInput.OnPointerMove_Action += PointerMove;

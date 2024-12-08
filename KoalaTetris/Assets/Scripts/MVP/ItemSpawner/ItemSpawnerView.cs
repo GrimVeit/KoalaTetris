@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemSpawnerView : View
@@ -11,6 +9,12 @@ public class ItemSpawnerView : View
 
     public void Spawn(Item prefab, Vector3 vector)
     {
+        if(prefab == null)
+        {
+            Debug.LogWarning("Not prefab");
+            return;
+        }
+
         Item item = Instantiate(prefab, spawnParent);
         item.transform.SetPositionAndRotation(vector, prefab.transform.rotation);
         OnItemSpawned?.Invoke(item);
@@ -18,6 +22,12 @@ public class ItemSpawnerView : View
 
     public void Spawn(Item prefab, Vector3 vector, Quaternion quaternion)
     {
+        if (prefab == null)
+        {
+            Debug.LogWarning("Not prefab");
+            return;
+        }
+
         Item item = Instantiate(prefab, spawnParent);
         item.transform.SetPositionAndRotation(vector, quaternion);
         OnItemSpawned?.Invoke(item);

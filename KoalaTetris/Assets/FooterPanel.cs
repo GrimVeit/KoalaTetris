@@ -1,10 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class MainPanel_Slots1Scene : MovePanel
+public class FooterPanel : MovePanel
 {
     
 }

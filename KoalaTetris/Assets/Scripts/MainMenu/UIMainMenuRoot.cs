@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class UIMainMenuRoot : MonoBehaviour
 {
+    [SerializeField] private HeaderPanel gameHeaderPanel;
+    [SerializeField] private HeaderPanel pauseHeaderPanel;
+    [SerializeField] private FooterPanel gameFooterPanel;
+    [SerializeField] private FooterPanel pauseFooterPanel;
 
     private Panel currentPanel;
 
@@ -10,7 +14,10 @@ public class UIMainMenuRoot : MonoBehaviour
 
     public void Initialize()
     {
-
+        gameHeaderPanel.Initialize();
+        pauseHeaderPanel.Initialize();
+        gameFooterPanel.Initialize();
+        pauseFooterPanel.Initialize();
     }
 
     public void Activate()
@@ -35,7 +42,34 @@ public class UIMainMenuRoot : MonoBehaviour
 
     public void Dispose()
     {
+        gameHeaderPanel.Dispose();
+        pauseHeaderPanel.Dispose();
+        gameFooterPanel.Dispose();
+        pauseFooterPanel.Dispose();
+    }
 
+    public void OpenGamePanels()
+    {
+        OpenOtherPanel(gameHeaderPanel);
+        OpenOtherPanel(gameFooterPanel);
+    }
+
+    public void CloseGamePanels()
+    {
+        CloseOtherPanel(gameHeaderPanel);
+        CloseOtherPanel(gameFooterPanel);
+    }
+
+    public void OpenPausePanels()
+    {
+        OpenOtherPanel(pauseHeaderPanel);
+        OpenOtherPanel(pauseFooterPanel);
+    }
+
+    public void ClosePausePanels()
+    {
+        CloseOtherPanel(pauseHeaderPanel);
+        CloseOtherPanel(pauseFooterPanel);
     }
 
 

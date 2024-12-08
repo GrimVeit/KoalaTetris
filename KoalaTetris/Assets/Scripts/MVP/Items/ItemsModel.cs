@@ -18,15 +18,35 @@ public class ItemsModel : MonoBehaviour
 
     public void AddItemToList(Item item)
     {
+        Debug.Log("Add");
+
         items.Add(item);
 
         item.OnGetPunch += HandleOnGetPunch;
+    }
+
+    public void RemoveAllItems()
+    {
+        Debug.Log(items.Count);
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            RemoveItem(items[i]);
+        }
+
+        items.Clear();
     }
 
     private void RemoveItemFromList(Item item)
     {
         items.Remove(item);
 
+        item.OnGetPunch -= HandleOnGetPunch;
+        item.DestroyItem();
+    }
+
+    private void RemoveItem(Item item)
+    {
         item.OnGetPunch -= HandleOnGetPunch;
         item.DestroyItem();
     }

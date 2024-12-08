@@ -51,5 +51,10 @@ public class ItemsPresenter
         itemsModel.AddItemToList(item);
     }
 
+    public void RemoveAllItems()
+    {
+        itemsModel.RemoveAllItems();
+    }
+
     #endregion
 }

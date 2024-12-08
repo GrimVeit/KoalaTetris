@@ -17,7 +17,7 @@ public class FakeItemMoveModel
 
     public event Action<ItemData> OnSetData;
 
-    private bool isActive;
+    private bool isActive = false;
 
     public void Initialize()
     {
@@ -36,9 +36,10 @@ public class FakeItemMoveModel
 
     public void StartMove(PointerEventData pointerEventData)
     {
+        OnStartMove?.Invoke();
+
         if (!isActive) return;
 
-        OnStartMove?.Invoke();
         OnTeleport?.Invoke(pointerEventData.position);
     }
 

@@ -42,4 +42,10 @@ public class ScoreModel
             OnChangeRecordScore?.Invoke(record);
         }
     }
+
+    public void ClearScore()
+    {
+        currentRecord = 0;
+        OnChangeCurrentScore?.Invoke(currentRecord);
+    }
 }

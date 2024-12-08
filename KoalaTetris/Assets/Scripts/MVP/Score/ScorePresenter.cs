@@ -46,5 +46,10 @@ public class ScorePresenter
         scoreModel.AddScore(score);
     }
 
+    public void ClearScore()
+    {
+        scoreModel.ClearScore();
+    }
+
     #endregion
 }

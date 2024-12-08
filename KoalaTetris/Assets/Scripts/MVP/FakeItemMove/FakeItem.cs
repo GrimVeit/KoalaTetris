@@ -32,7 +32,9 @@ public class FakeItem : MonoBehaviour
 
     public void Deactivate()
     {
-        line.SetActive(false);
-        imageFakeItem.rectTransform.localScale = Vector3.zero;
+        //line.SetActive(false);
+        //imageFakeItem.rectTransform.localScale = Vector3.zero;
+
+        imageFakeItem.rectTransform.DOScale(0, 0.3f).OnComplete(() => line.SetActive(false));
     }
 }

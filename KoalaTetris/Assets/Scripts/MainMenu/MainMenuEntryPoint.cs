@@ -21,6 +21,8 @@ public class MainMenuEntryPoint : MonoBehaviour
     private ItemsPresenter itemsPresenter;
     private ScorePresenter scorePresenter;
 
+    private GlobalMachineState machineState;
+
     public void Start()
     {
         //sceneRoot = Instantiate(menuRootPrefab);
@@ -34,14 +36,6 @@ public class MainMenuEntryPoint : MonoBehaviour
                     (new SoundModel(sounds.sounds, PlayerPrefsKeys.IS_MUTE_SOUNDS),
                     viewContainer.GetView<SoundView>());
         soundPresenter.Initialize();
-
-        //particleEffectPresenter = new ParticleEffectPresenter
-        //    (new ParticleEffectModel(),
-        //    viewContainer.GetView<ParticleEffectView>());
-        //particleEffectPresenter.Initialize();
-
-        //bankPresenter = new BankPresenter(new BankModel(), viewContainer.GetView<BankView>());
-        //bankPresenter.Initialize();
 
         fakeItemMovePresenter = new FakeItemMovePresenter(new FakeItemMoveModel(), viewContainer.GetView<FakeItemMoveView>());
         fakeItemMovePresenter.Initialize();
@@ -62,46 +56,14 @@ public class MainMenuEntryPoint : MonoBehaviour
         sceneRoot.SetParticleEffectProvider(particleEffectPresenter);
         sceneRoot.Initialize();
 
-        ActivateEvents();
+        machineState = new GlobalMachineState(sceneRoot, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
+        machineState.Initialize();
 
         sceneRoot.Activate();
-
-        itemCatalogPresenter.SelectSecondItemData();
-    }
-
-    private void ActivateEvents()
-    {
-        itemCatalogPresenter.OnSelectCurrentItem_Value += fakeItemMovePresenter.SetData;
-        itemCatalogPresenter.OnSelectCurrentItem_Value += itemSpawnerPresenter.SetData;
-
-        itemCatalogPresenter.OnSelectCurrentItem += fakeItemMovePresenter.Activate;
-
-        fakeItemMovePresenter.OnEndMove_Position += itemSpawnerPresenter.Spawn;
-        fakeItemMovePresenter.OnEndMove += itemCatalogPresenter.SelectSecondItemData;
-
-        itemsPresenter.OnAddNewItem += itemSpawnerPresenter.Spawn;
-        itemsPresenter.OnAddScore += scorePresenter.AddScore;
-        itemSpawnerPresenter.OnItemSpawned += itemsPresenter.AddItem;
-    }
-
-    private void DeactivateEvents()
-    {
-        itemCatalogPresenter.OnSelectCurrentItem_Value -= fakeItemMovePresenter.SetData;
-        itemCatalogPresenter.OnSelectCurrentItem_Value -= itemSpawnerPresenter.SetData;
-
-        itemCatalogPresenter.OnSelectCurrentItem -= fakeItemMovePresenter.Activate;
-
-        fakeItemMovePresenter.OnEndMove_Position -= itemSpawnerPresenter.Spawn;
-        fakeItemMovePresenter.OnEndMove -= itemCatalogPresenter.SelectSecondItemData;
-
-        itemsPresenter.OnAddNewItem -= itemSpawnerPresenter.Spawn;
-        itemsPresenter.OnAddScore -= scorePresenter.AddScore;
-        itemSpawnerPresenter.OnItemSpawned -= itemsPresenter.AddItem;
     }
 
     private void Dispose()
     {
-        DeactivateEvents();
         sceneRoot.Deactivate();
 
         sceneRoot?.Dispose();
@@ -121,7 +83,7 @@ public class MainMenuEntryPoint : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            itemCatalogPresenter.SelectSecondItemData();
+            machineState.SetState(machineState.GetState<PauseState>());
         }
     }
 }

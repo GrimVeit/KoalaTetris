@@ -60,6 +60,12 @@ public class FakeItemMovePresenter
 
     #region Input
 
+    public event Action OnStartMove
+    {
+        add { itemMoveModel.OnStartMove += value; }
+        remove { itemMoveModel.OnStartMove -= value; }
+    }
+
     public event Action OnEndMove
     {
         add { itemMoveModel.OnEndMove += value; }
