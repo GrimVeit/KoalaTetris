@@ -27,6 +27,9 @@ public class FakeItemMoveView : View
         fakeItemInput.OnPointerDown_Action += PointerDown;
         fakeItemInput.OnPointerUp_Action += PointerUp;
         fakeItemInput.OnPointerMove_Action += PointerMove;
+
+        fakeItem.OnActivatedItem += OnActivatedItem;
+        fakeItem.OnDeactivatedItem += OnDeactivatedItem;
     }
 
     public void Dispose()
@@ -36,9 +39,19 @@ public class FakeItemMoveView : View
         fakeItemInput.OnPointerMove_Action -= PointerMove;
     }
 
+    public void ActivateSmooth()
+    {
+        fakeItem.ActivateSmooth();
+    }
+
     public void Activate()
     {
         fakeItem.Activate();
+    }
+
+    public void DeactivateSmooth()
+    {
+        fakeItem.DeactivateSmooth();
     }
 
     public void Deactivate()
@@ -105,6 +118,9 @@ public class FakeItemMoveView : View
 
     #region Input
 
+    public event Action OnActivatedItem_Action;
+    public event Action OnDeactivatedItem_Action;
+
     public event Action<PointerEventData> OnPointerDown;
     public event Action<PointerEventData, Vector3> OnPointerUp;
     public event Action<PointerEventData> OnPointerMove;
@@ -122,6 +138,16 @@ public class FakeItemMoveView : View
     private void PointerMove(PointerEventData eventData)
     {
         OnPointerMove?.Invoke(eventData);
+    }
+
+    private void OnActivatedItem()
+    {
+        OnActivatedItem_Action?.Invoke();
+    }
+
+    private void OnDeactivatedItem()
+    {
+        OnDeactivatedItem_Action?.Invoke();
     }
 
     #endregion

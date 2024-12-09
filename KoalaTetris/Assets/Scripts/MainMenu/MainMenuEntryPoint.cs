@@ -21,6 +21,8 @@ public class MainMenuEntryPoint : MonoBehaviour
     private ItemsPresenter itemsPresenter;
     private ScorePresenter scorePresenter;
 
+    private TriggerZonesPresenter triggerZonesPresenter;
+
     private GlobalMachineState machineState;
 
     public void Start()
@@ -52,11 +54,14 @@ public class MainMenuEntryPoint : MonoBehaviour
         scorePresenter = new ScorePresenter(new ScoreModel(soundPresenter), viewContainer.GetView<ScoreView>());
         scorePresenter.Initialize();
 
+        triggerZonesPresenter = new TriggerZonesPresenter(new TriggerZonesModel(), viewContainer.GetView<TriggerZonesView>());
+        triggerZonesPresenter.Initialize();
+
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.SetParticleEffectProvider(particleEffectPresenter);
         sceneRoot.Initialize();
 
-        machineState = new GlobalMachineState(sceneRoot, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
+        machineState = new GlobalMachineState(sceneRoot, triggerZonesPresenter, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
         machineState.Initialize();
 
         sceneRoot.Activate();

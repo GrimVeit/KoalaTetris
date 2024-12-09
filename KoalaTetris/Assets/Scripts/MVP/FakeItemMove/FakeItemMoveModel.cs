@@ -6,13 +6,19 @@ using UnityEngine.EventSystems;
 
 public class FakeItemMoveModel
 {
-    public event Action OnActivate;
-    public event Action OnDeactivate;
+    public event Action OnActivatedItem;
+    public event Action OnDeactivatedItem;
+
+    public event Action OnStartActivateSmooth;
+    public event Action OnStartDeactivateSmooth;
+    public event Action OnStartActivate;
+    public event Action OnStartDeactivate;
 
     public event Action OnStartMove;
     public event Action<Vector3> OnTeleport;
     public event Action<Vector3> OnMove;
     public event Action OnEndMove;
+    public event Action OnSpawn;
     public event Action<Vector3> OnEndMove_Position;
 
     public event Action<ItemData> OnSetData;
@@ -37,42 +43,59 @@ public class FakeItemMoveModel
     public void StartMove(PointerEventData pointerEventData)
     {
         OnStartMove?.Invoke();
+        OnTeleport?.Invoke(pointerEventData.position);
 
         if (!isActive) return;
-
-        OnTeleport?.Invoke(pointerEventData.position);
     }
 
     public void Move(PointerEventData pointerEventData)
     {
-        if (!isActive) return;
-
         OnMove?.Invoke(pointerEventData.position);
+
+        if (!isActive) return;
     }
 
     public void EndMove(PointerEventData pointerEventData, Vector3 vectorItemPosition)
     {
+        OnEndMove?.Invoke();
+
         if (!isActive) return;
 
-        Deactivate();
-
         OnEndMove_Position?.Invoke(vectorItemPosition);
-        OnEndMove?.Invoke();
+        OnSpawn?.Invoke();
+
+        StartDeactivate();
     }
 
+
+    public void StartActivateSmooth()
+    {
+        OnStartActivateSmooth?.Invoke();
+    }
+
+    public void StartActivate()
+    {
+        OnStartActivate?.Invoke();
+    }
+
+    public void StartDeactivateSmooth()
+    {
+        OnStartDeactivateSmooth?.Invoke();
+    }
+
+    public void StartDeactivate()
+    {
+        OnStartDeactivate?.Invoke();
+    }
 
     public void Activate()
     {
         isActive = true;
-
-        OnActivate?.Invoke();
     }
 
     public void Deactivate()
     {
         isActive = false;
-
-        OnDeactivate?.Invoke();
     }
 
 }

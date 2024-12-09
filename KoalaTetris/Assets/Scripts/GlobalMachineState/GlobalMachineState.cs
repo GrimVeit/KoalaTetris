@@ -9,19 +9,21 @@ public class GlobalMachineState : IGlobalStateMachineControl
 
     public GlobalMachineState(
         UIMainMenuRoot menuRoot,
+        TriggerZonesPresenter triggerZonesPresenter,
         FakeItemMovePresenter fakeItemMovePresenter,
         ItemCatalogPresenter itemCatalogPresenter,
         ItemSpawnerPresenter itemSpawnerPresenter,
         ItemsPresenter itemsPresenter,
         ScorePresenter scorePresenter)
     {
-        states[typeof(GameState)] = new GameState(this, menuRoot, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
+        states[typeof(GameState)] = new GameState(this, menuRoot, triggerZonesPresenter, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
         states[typeof(PauseState)] = new PauseState(this, menuRoot, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
+        states[typeof(StartState)] = new StartState(this, menuRoot, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
     }
 
     public void Initialize()
     {
-        SetState(GetState<PauseState>());
+        SetState(GetState<StartState>());
     }
 
     public void Dispose()

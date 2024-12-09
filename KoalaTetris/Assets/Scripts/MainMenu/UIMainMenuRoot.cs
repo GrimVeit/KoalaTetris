@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class UIMainMenuRoot : MonoBehaviour
 {
+    [SerializeField] private MainMenuPanal mainMenuPanel;
+    [SerializeField] private GamePanel gamePanel;
     [SerializeField] private HeaderPanel gameHeaderPanel;
     [SerializeField] private HeaderPanel pauseHeaderPanel;
     [SerializeField] private FooterPanel gameFooterPanel;
@@ -14,6 +16,8 @@ public class UIMainMenuRoot : MonoBehaviour
 
     public void Initialize()
     {
+        mainMenuPanel.Initialize();
+        gamePanel.Initialize();
         gameHeaderPanel.Initialize();
         pauseHeaderPanel.Initialize();
         gameFooterPanel.Initialize();
@@ -42,10 +46,22 @@ public class UIMainMenuRoot : MonoBehaviour
 
     public void Dispose()
     {
+        mainMenuPanel.Dispose();
+        gamePanel.Dispose();
         gameHeaderPanel.Dispose();
         pauseHeaderPanel.Dispose();
         gameFooterPanel.Dispose();
         pauseFooterPanel.Dispose();
+    }
+
+    public void OpenMainMenuPanel()
+    {
+        OpenPanel(mainMenuPanel);
+    }
+
+    public void OpenGamePanel()
+    {
+        OpenPanel(gamePanel);
     }
 
     public void OpenGamePanels()
@@ -75,10 +91,8 @@ public class UIMainMenuRoot : MonoBehaviour
 
     private void OpenPanel(Panel panel)
     {
-        if (currentPanel != null)
-            currentPanel.DeactivatePanel();
+        currentPanel?.DeactivatePanel();
 
-        //soundProvider.PlayOneShot("ShoohPanel_Open");
         currentPanel = panel;
         currentPanel.ActivatePanel();
 
@@ -93,10 +107,4 @@ public class UIMainMenuRoot : MonoBehaviour
     {
         panel.DeactivatePanel();
     }
-
-    #region Input Actions
-
-
-
-    #endregion
 }

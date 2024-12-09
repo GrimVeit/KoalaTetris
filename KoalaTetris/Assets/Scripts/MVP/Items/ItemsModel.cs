@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemsModel : MonoBehaviour
+public class ItemsModel
 {
     public event Action<int> OnAddScore;
     public event Action<int, Vector3, Quaternion> OnAddNewItem;
@@ -18,7 +18,7 @@ public class ItemsModel : MonoBehaviour
 
     public void AddItemToList(Item item)
     {
-        Debug.Log("Add");
+        //Debug.Log("Add");
 
         items.Add(item);
 

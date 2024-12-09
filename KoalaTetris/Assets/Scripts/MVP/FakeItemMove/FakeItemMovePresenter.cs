@@ -32,6 +32,9 @@ public class FakeItemMovePresenter
 
     private void ActivateEvents()
     {
+        itemMoveView.OnActivatedItem_Action += itemMoveModel.Activate;
+        itemMoveView.OnDeactivatedItem_Action += itemMoveModel.Deactivate;
+
         itemMoveView.OnPointerDown += itemMoveModel.StartMove;
         itemMoveView.OnPointerUp += itemMoveModel.EndMove;
         itemMoveView.OnPointerMove += itemMoveModel.Move;
@@ -39,9 +42,16 @@ public class FakeItemMovePresenter
         itemMoveModel.OnMove += itemMoveView.Move;
         itemMoveModel.OnTeleport += itemMoveView.Teleport;
 
-        itemMoveModel.OnActivate += itemMoveView.Activate;
-        itemMoveModel.OnDeactivate += itemMoveView.Deactivate;
+        itemMoveModel.OnStartActivateSmooth += itemMoveView.ActivateSmooth;
+        itemMoveModel.OnStartDeactivateSmooth += itemMoveView.DeactivateSmooth;
+        itemMoveModel.OnStartActivate += itemMoveView.Activate;
+        itemMoveModel.OnStartDeactivate += itemMoveView.Deactivate;
         itemMoveModel.OnSetData += itemMoveView.SetData;
+    }
+
+    private void ItemMoveView_OnDeactivatedItem()
+    {
+        throw new NotImplementedException();
     }
 
     private void DeactivateEvents()
@@ -53,8 +63,9 @@ public class FakeItemMovePresenter
         itemMoveModel.OnMove -= itemMoveView.Move;
         itemMoveModel.OnTeleport -= itemMoveView.Teleport;
 
-        itemMoveModel.OnActivate -= itemMoveView.Activate;
-        itemMoveModel.OnDeactivate -= itemMoveModel.Deactivate;
+        itemMoveModel.OnStartActivateSmooth -= itemMoveView.ActivateSmooth;
+        itemMoveModel.OnStartDeactivateSmooth -= itemMoveView.DeactivateSmooth;
+        itemMoveModel.OnStartDeactivate -= itemMoveView.Deactivate;
         itemMoveModel.OnSetData -= itemMoveView.SetData;
     }
 
@@ -72,20 +83,36 @@ public class FakeItemMovePresenter
         remove { itemMoveModel.OnEndMove -= value; }
     }
 
+    public event Action OnSpawnNewItem
+    {
+        add { itemMoveModel.OnSpawn += value; }
+        remove { itemMoveModel.OnSpawn -= value; }
+    }
+
     public event Action<Vector3> OnEndMove_Position
     {
         add { itemMoveModel.OnEndMove_Position += value; }
         remove { itemMoveModel.OnEndMove_Position -= value; }
     }
 
+    public void ActivateSmooth()
+    {
+        itemMoveModel.StartActivateSmooth();
+    }
+
+    public void DeactivateSmooth()
+    {
+        itemMoveModel.StartDeactivateSmooth();
+    }
+
     public void Activate()
     {
-        itemMoveModel.Activate();
+        itemMoveModel.StartActivate();
     }
 
     public void Deactivate()
     {
-        itemMoveModel.Deactivate();
+        itemMoveModel.StartDeactivate();
     }
 
     public void SetData(ItemData itemData)
