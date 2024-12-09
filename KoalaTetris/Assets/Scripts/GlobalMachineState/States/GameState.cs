@@ -93,7 +93,7 @@ public class GameState : IGlobalState
     {
         fakeItemMovePresenter.Deactivate();
 
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.6f);
 
         itemCatalogPresenter.SelectSecondItemData();
         fakeItemMovePresenter.ActivateSmooth();

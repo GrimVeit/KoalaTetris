@@ -112,6 +112,17 @@ public class Particle
            particleSystem.Play();
     }
 
+    public void PlaySpawn(Vector3 vector)
+    {
+        var particle = UnityEngine.Object.Instantiate(particleSystemPrefab, particleTransform);
+        particle.transform.SetLocalPositionAndRotation(vector, particleSystemPrefab.transform.rotation);
+
+        float randomSize = UnityEngine.Random.Range(minSize, maxSize);
+
+        particleSystem.transform.localScale = new Vector3(randomSize, randomSize, randomSize);
+        particle.Play();
+    }
+
     public void Stop()
     {
         if(particleSystem != null)

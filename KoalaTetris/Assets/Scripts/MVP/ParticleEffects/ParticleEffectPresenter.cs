@@ -15,7 +15,7 @@ public class ParticleEffectPresenter : IParticleEffectProvider
 
     public void Initialize()
     {
-        effectModel.Initialize(effectView.particleEffects.effects.ToArray());
+        effectModel.Initialize(effectView.particleEffects.effects.ToArray(), effectView.particleEffects.spawnEffects.ToArray());
     }
 
     public void Dispose()
@@ -28,6 +28,11 @@ public class ParticleEffectPresenter : IParticleEffectProvider
         effectModel.Play(ID);
     }
 
+    public void Play(string ID, Vector3 vector)
+    {
+        effectModel.Play(ID, vector);
+    }
+
     public IParticleEffect GetParticleEffect(string ID)
     {
         return effectModel.GetParticleEffect(ID);
@@ -37,5 +42,6 @@ public class ParticleEffectPresenter : IParticleEffectProvider
 public interface IParticleEffectProvider
 {
     void Play(string ID);
+    void Play(string ID, Vector3 vector);
     IParticleEffect GetParticleEffect(string ID);
 }

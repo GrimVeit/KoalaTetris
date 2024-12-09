@@ -22,6 +22,7 @@ public class MainMenuEntryPoint : MonoBehaviour
     private ScorePresenter scorePresenter;
 
     private TriggerZonesPresenter triggerZonesPresenter;
+    private ScaleEffectPresenter scaleEffectPresenter;
 
     private GlobalMachineState machineState;
 
@@ -39,6 +40,9 @@ public class MainMenuEntryPoint : MonoBehaviour
                     viewContainer.GetView<SoundView>());
         soundPresenter.Initialize();
 
+        particleEffectPresenter = new ParticleEffectPresenter(new ParticleEffectModel(), viewContainer.GetView<ParticleEffectView>());
+        particleEffectPresenter.Initialize();
+
         fakeItemMovePresenter = new FakeItemMovePresenter(new FakeItemMoveModel(), viewContainer.GetView<FakeItemMoveView>());
         fakeItemMovePresenter.Initialize();
 
@@ -48,7 +52,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         itemSpawnerPresenter = new ItemSpawnerPresenter(new ItemSpawnerModel(items), viewContainer.GetView<ItemSpawnerView>());
         itemSpawnerPresenter.Initialize();
 
-        itemsPresenter = new ItemsPresenter(new ItemsModel(12));
+        itemsPresenter = new ItemsPresenter(new ItemsModel(12, particleEffectPresenter));
         itemsPresenter.Initialize();
 
         scorePresenter = new ScorePresenter(new ScoreModel(soundPresenter), viewContainer.GetView<ScoreView>());
@@ -56,6 +60,9 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         triggerZonesPresenter = new TriggerZonesPresenter(new TriggerZonesModel(), viewContainer.GetView<TriggerZonesView>());
         triggerZonesPresenter.Initialize();
+
+        scaleEffectPresenter = new ScaleEffectPresenter(new ScaleEffectModel(), viewContainer.GetView<ScaleEffectView>());
+        scaleEffectPresenter.Initialize();
 
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.SetParticleEffectProvider(particleEffectPresenter);

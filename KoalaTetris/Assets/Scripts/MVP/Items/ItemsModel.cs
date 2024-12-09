@@ -11,9 +11,12 @@ public class ItemsModel
 
     public int maxCountItemTypes;
 
-    public ItemsModel(int maxCountItemTypes)
+    private IParticleEffectProvider particleEffectProvider;
+
+    public ItemsModel(int maxCountItemTypes, IParticleEffectProvider particleEffectProvider)
     {
         this.maxCountItemTypes = maxCountItemTypes;
+        this.particleEffectProvider = particleEffectProvider;
     }
 
     public void AddItemToList(Item item)
@@ -57,6 +60,9 @@ public class ItemsModel
 
         RemoveItemFromList(item);
         RemoveItemFromList(otherItem);
+
+        Debug.Log(position);
+        particleEffectProvider.Play("Punch", position);
 
         OnAddNewItem?.Invoke(id + 1, position, Quaternion.Slerp(quaternion1, quaternion2, 0.5f));
         OnAddScore?.Invoke(score);
