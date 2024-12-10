@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class ItemsPresenter
 {
@@ -54,6 +55,11 @@ public class ItemsPresenter
     public void RemoveAllItems()
     {
         itemsModel.RemoveAllItems();
+    }
+
+    public void ActivateAnimationFail()
+    {
+        itemsModel.ActivateAnimationFail();
     }
 
     #endregion

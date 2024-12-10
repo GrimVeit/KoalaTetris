@@ -12,11 +12,13 @@ public class ItemsModel
     public int maxCountItemTypes;
 
     private IParticleEffectProvider particleEffectProvider;
+    private ISoundProvider soundProvider;
 
-    public ItemsModel(int maxCountItemTypes, IParticleEffectProvider particleEffectProvider)
+    public ItemsModel(int maxCountItemTypes, IParticleEffectProvider particleEffectProvider, ISoundProvider soundProvider)
     {
         this.maxCountItemTypes = maxCountItemTypes;
         this.particleEffectProvider = particleEffectProvider;
+        this.soundProvider = soundProvider;
     }
 
     public void AddItemToList(Item item)
@@ -38,6 +40,14 @@ public class ItemsModel
         }
 
         items.Clear();
+    }
+
+    public void ActivateAnimationFail()
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            items[i].ActivateAnimationFailGame();
+        }
     }
 
     private void RemoveItemFromList(Item item)
@@ -63,6 +73,8 @@ public class ItemsModel
 
         Debug.Log(position);
         particleEffectProvider.Play("Punch", position);
+
+        soundProvider.PlayOneShotRandom("Bubble");
 
         OnAddNewItem?.Invoke(id + 1, position, Quaternion.Slerp(quaternion1, quaternion2, 0.5f));
         OnAddScore?.Invoke(score);

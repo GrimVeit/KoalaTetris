@@ -194,5 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6a831b0ea1fb1b4e9a6692e88831906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imageItem: {fileID: 4626606182757935257}
+  spriteOpen: {fileID: 21300000, guid: 18ffb63f4ebf3f2499431c1df19c3abe, type: 3}
+  spriteClose: {fileID: 21300000, guid: 2bd2273b4032f1540b3a771948cd91db, type: 3}
   id: 2
   score: 5

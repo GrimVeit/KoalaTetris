@@ -8,11 +8,12 @@ public class SoundModel
     public event Action OnUnmuteSounds;
 
     public Dictionary<string, Sound> sounds = new Dictionary<string, Sound>();
+    public Dictionary<string, RandomSound> randomSounds = new Dictionary<string, RandomSound>();
 
     private string KEY;
     private bool isMute = false;
 
-    public SoundModel(List<Sound> sounds, string key)
+    public SoundModel(List<Sound> sounds, List<RandomSound> randomSounds, string key)
     {
         KEY = key;
 
@@ -21,6 +22,12 @@ public class SoundModel
             this.sounds[sounds[i].ID] = sounds[i];
             this.sounds[sounds[i].ID].Initialize();
         }
+
+        for (int i = 0; i < randomSounds.Count; i++)
+        {
+            this.randomSounds[randomSounds[i].ID] = randomSounds[i];
+            this.randomSounds[randomSounds[i].ID].Initialize();
+        }
     }
 
     public void Initialize()
@@ -28,6 +35,11 @@ public class SoundModel
         isMute = PlayerPrefs.GetInt(KEY, 1) == 0;
 
         foreach (var sound in sounds.Values)
+        {
+            sound.Initialize();
+        }
+
+        foreach (var sound in randomSounds.Values)
         {
             sound.Initialize();
         }
@@ -45,6 +57,11 @@ public class SoundModel
         PlayerPrefs.SetInt(KEY, value);
 
         foreach (var sound in sounds.Values)
+        {
+            sound.Dispose();
+        }
+
+        foreach (var sound in randomSounds.Values)
         {
             sound.Dispose();
         }
@@ -108,11 +125,33 @@ public class SoundModel
         Debug.LogError("Нет звукового файла с идентификатором " + id);
     }
 
+    public void PlayRandom(string id)
+    {
+        if (randomSounds.ContainsKey(id))
+        {
+            randomSounds[id].Play();
+            return;
+        }
+
+        Debug.LogError("Нет звукового файла с идентификатором " + id);
+    }
+
     public void PlayOneShot(string id)
     {
         if (sounds.ContainsKey(id))
         {
             sounds[id].PlayOneShot();
+            return;
+        }
+
+        Debug.LogError("Нет звукового файла с идентификатором " + id);
+    }
+
+    public void PlayOneShotRandom(string id)
+    {
+        if (randomSounds.ContainsKey(id))
+        {
+            randomSounds[id].PlayOneShot();
             return;
         }
 

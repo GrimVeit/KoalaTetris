@@ -25,6 +25,13 @@ public class FakeItemMoveModel
 
     private bool isActive = false;
 
+    public ISoundProvider soundProvider;
+
+    public FakeItemMoveModel(ISoundProvider soundProvider)
+    {
+        this.soundProvider = soundProvider;
+    }
+
     public void Initialize()
     {
 
@@ -63,6 +70,8 @@ public class FakeItemMoveModel
 
         OnEndMove_Position?.Invoke(vectorItemPosition);
         OnSpawn?.Invoke();
+
+        soundProvider.PlayOneShot("Button");
 
         StartDeactivate();
     }

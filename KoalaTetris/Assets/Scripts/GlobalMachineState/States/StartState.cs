@@ -14,10 +14,13 @@ public class StartState : IGlobalState
     private ScorePresenter scorePresenter;
 
     private IGlobalStateMachineControl globalStateMachineControl;
+    private ISoundProvider soundProvider;
+    private ISound soundBackgroundStart;
 
     public StartState(
         IGlobalStateMachineControl globalStateMachineControl,
         UIMainMenuRoot sceneRoot,
+        ISoundProvider soundProvider,
         FakeItemMovePresenter fakeItemMovePresenter,
         ItemCatalogPresenter itemCatalogPresenter,
         ItemSpawnerPresenter itemSpawnerPresenter,
@@ -26,15 +29,21 @@ public class StartState : IGlobalState
     {
         this.globalStateMachineControl = globalStateMachineControl;
         this.sceneRoot = sceneRoot;
+        this.soundProvider = soundProvider;
         this.fakeItemMovePresenter = fakeItemMovePresenter;
         this.itemCatalogPresenter = itemCatalogPresenter;
         this.itemSpawnerPresenter = itemSpawnerPresenter;
         this.itemsPresenter = itemsPresenter;
         this.scorePresenter = scorePresenter;
+
+        soundBackgroundStart = this.soundProvider.GetSound("Background_Start");
     }
 
     public void EnterState()
     {
+        soundBackgroundStart.Play();
+        soundBackgroundStart.SetVolume(0, 0.4f);
+
         sceneRoot.OpenMainMenuPanel();
 
         fakeItemMovePresenter.OnEndMove += ChangeStateToGame;
@@ -42,6 +51,8 @@ public class StartState : IGlobalState
 
     public void ExitState()
     {
+        soundBackgroundStart.SetVolume(0.4f, 0, soundBackgroundStart.Stop);
+
         sceneRoot.OpenGamePanel();
 
         fakeItemMovePresenter.OnEndMove -= ChangeStateToGame;
@@ -49,6 +60,8 @@ public class StartState : IGlobalState
 
     private void ChangeStateToGame()
     {
+        soundProvider.PlayOneShot("Button");
+
         globalStateMachineControl.SetState(globalStateMachineControl.GetState<GameState>());
     }
 }

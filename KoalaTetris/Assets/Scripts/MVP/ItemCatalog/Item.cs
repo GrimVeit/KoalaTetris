@@ -1,14 +1,21 @@
 using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Item : MonoBehaviour, IIdentify
 {
     public event Action<Item, Item, Vector3, Quaternion, Quaternion, int, int> OnGetPunch;
     public string GetID() => id;
 
+    [SerializeField] private Image imageItem;
+    [SerializeField] private Sprite spriteOpen;
+    [SerializeField] private Sprite spriteClose;
+
     [SerializeField] private string id;
     [SerializeField] private int score;
+
+    private IEnumerator animationCoroutine;
 
     private bool isActive = true;
 
@@ -33,6 +40,30 @@ public class Item : MonoBehaviour, IIdentify
         }
     }
 
+    public void ActivateAnimationFailGame()
+    {
+        if (animationCoroutine != null)
+            Coroutines.Stop(animationCoroutine);
+
+        animationCoroutine = AnimationCoroutine(6);
+        Coroutines.Start(animationCoroutine);
+    }
+
+    private IEnumerator AnimationCoroutine(int countLoops)
+    {
+        for (int i = 0; i < countLoops; i++)
+        {
+            imageItem.sprite = imageItem.sprite == spriteOpen ? spriteClose : spriteOpen;
+
+            yield return new WaitForSeconds(0.3f);
+        }
+
+        imageItem.sprite = spriteClose;
+
+    }
+
+
+
     public void DestroyItem()
     {
         Destroy(gameObject);
@@ -41,5 +72,11 @@ public class Item : MonoBehaviour, IIdentify
     public void DeactivateItem()
     {
         isActive = false;
+    }
+
+    private void OnDestroy()
+    {
+        if(animationCoroutine != null)
+            Coroutines.Stop(animationCoroutine);
     }
 }

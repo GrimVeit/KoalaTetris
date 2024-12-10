@@ -6,7 +6,6 @@ public class MainMenuEntryPoint : MonoBehaviour
     [SerializeField] private Sounds sounds;
     [SerializeField] private ItemDatas itemDatas;
     [SerializeField] private Items items;
-    //[SerializeField] private UIMainMenuRoot menuRootPrefab;
     [SerializeField] private UIMainMenuRoot sceneRoot;
     private ViewContainer viewContainer;
 
@@ -26,24 +25,20 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     private GlobalMachineState machineState;
 
-    public void Start()
+    public void Awake()
     {
-        //sceneRoot = Instantiate(menuRootPrefab);
- 
-        //uIRootView.AttachSceneUI(sceneRoot.gameObject, Camera.main);
-
         viewContainer = sceneRoot.GetComponent<ViewContainer>();
         viewContainer.Initialize();
 
         soundPresenter = new SoundPresenter
-                    (new SoundModel(sounds.sounds, PlayerPrefsKeys.IS_MUTE_SOUNDS),
+                    (new SoundModel(sounds.sounds, sounds.randomSounds, PlayerPrefsKeys.IS_MUTE_SOUNDS),
                     viewContainer.GetView<SoundView>());
         soundPresenter.Initialize();
 
         particleEffectPresenter = new ParticleEffectPresenter(new ParticleEffectModel(), viewContainer.GetView<ParticleEffectView>());
         particleEffectPresenter.Initialize();
 
-        fakeItemMovePresenter = new FakeItemMovePresenter(new FakeItemMoveModel(), viewContainer.GetView<FakeItemMoveView>());
+        fakeItemMovePresenter = new FakeItemMovePresenter(new FakeItemMoveModel(soundPresenter), viewContainer.GetView<FakeItemMoveView>());
         fakeItemMovePresenter.Initialize();
 
         itemCatalogPresenter = new ItemCatalogPresenter(new ItemCatalogModel(itemDatas), viewContainer.GetView<ItemCatalogView>());
@@ -52,7 +47,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         itemSpawnerPresenter = new ItemSpawnerPresenter(new ItemSpawnerModel(items), viewContainer.GetView<ItemSpawnerView>());
         itemSpawnerPresenter.Initialize();
 
-        itemsPresenter = new ItemsPresenter(new ItemsModel(12, particleEffectPresenter));
+        itemsPresenter = new ItemsPresenter(new ItemsModel(12, particleEffectPresenter, soundPresenter));
         itemsPresenter.Initialize();
 
         scorePresenter = new ScorePresenter(new ScoreModel(soundPresenter), viewContainer.GetView<ScoreView>());
@@ -68,7 +63,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         sceneRoot.SetParticleEffectProvider(particleEffectPresenter);
         sceneRoot.Initialize();
 
-        machineState = new GlobalMachineState(sceneRoot, triggerZonesPresenter, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
+        machineState = new GlobalMachineState(sceneRoot, soundPresenter, triggerZonesPresenter, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
         machineState.Initialize();
 
         sceneRoot.Activate();

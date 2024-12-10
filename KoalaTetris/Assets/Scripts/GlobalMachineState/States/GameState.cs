@@ -15,10 +15,13 @@ public class GameState : IGlobalState
     private TriggerZonesPresenter triggerZonesPresenter;
 
     private IGlobalStateMachineControl globalStateMachineControl;
+    private ISoundProvider soundProvider;
+    private ISound soundBackgroundGame;
 
     public GameState(
         IGlobalStateMachineControl globalStateMachineControl,
         UIMainMenuRoot sceneRoot,
+        ISoundProvider soundProvider,
         TriggerZonesPresenter triggerZonesPresenter,
         FakeItemMovePresenter fakeItemMovePresenter,
         ItemCatalogPresenter itemCatalogPresenter, 
@@ -28,12 +31,15 @@ public class GameState : IGlobalState
     {
         this.globalStateMachineControl = globalStateMachineControl;
         this.sceneRoot = sceneRoot;
+        this.soundProvider = soundProvider;
         this.triggerZonesPresenter = triggerZonesPresenter;
         this.fakeItemMovePresenter = fakeItemMovePresenter;
         this.itemCatalogPresenter = itemCatalogPresenter;
         this.itemSpawnerPresenter = itemSpawnerPresenter;
         this.itemsPresenter = itemsPresenter;
         this.scorePresenter = scorePresenter;
+
+        soundBackgroundGame = soundProvider.GetSound("Background_Game");
     }
 
     public void EnterState()
@@ -55,6 +61,9 @@ public class GameState : IGlobalState
         fakeItemMovePresenter.ActivateSmooth();
 
         sceneRoot.OpenGamePanels();
+
+        soundBackgroundGame.Play();
+        soundBackgroundGame.SetVolume(0, 0.4f);
     }
 
     public void ExitState()
@@ -75,10 +84,14 @@ public class GameState : IGlobalState
         fakeItemMovePresenter.DeactivateSmooth();
 
         sceneRoot.CloseGamePanels();
+
+        soundBackgroundGame.SetVolume(0.4f, 0, soundBackgroundGame.Stop);
     }
 
     private void ChangeStateToPause()
     {
+        soundProvider.PlayOneShot("Button");
+
         globalStateMachineControl.SetState(globalStateMachineControl.GetState<PauseState>());
     }
 

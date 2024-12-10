@@ -56,12 +56,24 @@ public class SoundPresenter : ISoundProvider
         return soundModel.GetSound(id);
     }
 
+    public void PlayRandom(string id)
+    {
+        soundModel.PlayRandom(id);
+    }
+
+    public void PlayOneShotRandom(string id)
+    {
+        soundModel.PlayOneShotRandom(id);
+    }
+
     #endregion
 }
 
 public interface ISoundProvider
 {
     void Play(string id);
+    void PlayRandom(string id);
     void PlayOneShot(string id);
+    void PlayOneShotRandom(string id);
     ISound GetSound(string id);
 }
