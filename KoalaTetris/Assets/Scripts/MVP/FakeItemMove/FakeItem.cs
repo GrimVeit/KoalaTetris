@@ -18,6 +18,7 @@ public class FakeItem : MonoBehaviour
     [SerializeField] private Trigger trigger;
 
     private readonly float scale = 0.54f;
+    private float scaleImage = 1;
 
     public void Move(float vectorX)
     {
@@ -27,7 +28,7 @@ public class FakeItem : MonoBehaviour
     public void SetData(ItemData itemData)
     {
         imageFakeItem.sprite = itemData.Sprite;
-        imageFakeItem.rectTransform.sizeDelta = new Vector2(itemData.Width, itemData.Height);
+        imageFakeItem.rectTransform.sizeDelta = new Vector2(itemData.Width * scaleImage, itemData.Height * scaleImage);
     }
 
     public void ActivateSmooth()
@@ -39,6 +40,11 @@ public class FakeItem : MonoBehaviour
             line.SetActive(true);
             OnActivatedItem?.Invoke();
         });
+    }
+
+    public void SetScaleFactor(float scaleFactor)
+    {
+        scaleImage = scaleFactor;
     }
 
     public void Activate()

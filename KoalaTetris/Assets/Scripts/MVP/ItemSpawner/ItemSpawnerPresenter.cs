@@ -25,6 +25,7 @@ public class ItemSpawnerPresenter
 
     private void ActivateEvents()
     {
+        itemSpawnerModel.OnChangeScaleFactor += itemSpawnerView.SetScaleFactor;
         itemSpawnerModel.OnStartSpawn += itemSpawnerView.Spawn;
         itemSpawnerModel.OnStartSpawn_Rotate += itemSpawnerView.Spawn;
 
@@ -33,6 +34,7 @@ public class ItemSpawnerPresenter
 
     private void DeactivateEvents()
     {
+        itemSpawnerModel.OnChangeScaleFactor -= itemSpawnerView.SetScaleFactor;
         itemSpawnerModel.OnStartSpawn -= itemSpawnerView.Spawn;
         itemSpawnerModel.OnStartSpawn_Rotate -= itemSpawnerView.Spawn;
 
@@ -65,6 +67,11 @@ public class ItemSpawnerPresenter
     public void Spawn(int id, Vector3 vector, Quaternion quaternion)
     {
         itemSpawnerModel.Spawn(id, vector, quaternion);
+    }
+
+    public void SetScaleFactor(float scaleFactor)
+    {
+        itemSpawnerModel.SetScaleFactor(scaleFactor);
     }
 
     #endregion

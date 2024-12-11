@@ -64,6 +64,11 @@ public class FakeItemMoveView : View
         fakeItem.SetData(itemData);
     }
 
+    public void SetScaleFactor(float scaleFactor)
+    {
+        fakeItem.SetScaleFactor(scaleFactor);
+    }
+
     public void Move(Vector3 vector)
     {
         //Debug.Log("MOVE");

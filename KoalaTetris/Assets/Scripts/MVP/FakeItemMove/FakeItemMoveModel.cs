@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class FakeItemMoveModel
 {
+    public event Action<float> OnChangeScaleFactor;
+
     public event Action OnActivatedItem;
     public event Action OnDeactivatedItem;
 
@@ -105,6 +107,11 @@ public class FakeItemMoveModel
     public void Deactivate()
     {
         isActive = false;
+    }
+
+    public void SetScaleFactor(float scaleFactor)
+    {
+        OnChangeScaleFactor?.Invoke(scaleFactor);
     }
 
 }

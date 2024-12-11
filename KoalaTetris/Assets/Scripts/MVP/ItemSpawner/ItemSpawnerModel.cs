@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ItemSpawnerModel
 {
+    public event Action<float> OnChangeScaleFactor;
     public event Action<Item, Vector3> OnStartSpawn;
     public event Action<Item, Vector3, Quaternion> OnStartSpawn_Rotate;
     public event Action<Item> OnItemSpawned;
@@ -47,5 +48,10 @@ public class ItemSpawnerModel
     public void OnSpawn(Item item)
     {
         OnItemSpawned?.Invoke(item);
+    }
+
+    public void SetScaleFactor(float scaleFactor)
+    {
+        OnChangeScaleFactor?.Invoke(scaleFactor);
     }
 }

@@ -47,6 +47,7 @@ public class FakeItemMovePresenter
         itemMoveModel.OnStartActivate += itemMoveView.Activate;
         itemMoveModel.OnStartDeactivate += itemMoveView.Deactivate;
         itemMoveModel.OnSetData += itemMoveView.SetData;
+        itemMoveModel.OnChangeScaleFactor += itemMoveView.SetScaleFactor;
     }
 
     private void ItemMoveView_OnDeactivatedItem()
@@ -67,6 +68,7 @@ public class FakeItemMovePresenter
         itemMoveModel.OnStartDeactivateSmooth -= itemMoveView.DeactivateSmooth;
         itemMoveModel.OnStartDeactivate -= itemMoveView.Deactivate;
         itemMoveModel.OnSetData -= itemMoveView.SetData;
+        itemMoveModel.OnChangeScaleFactor -= itemMoveView.SetScaleFactor;
     }
 
     #region Input
@@ -118,6 +120,11 @@ public class FakeItemMovePresenter
     public void SetData(ItemData itemData)
     {
         itemMoveModel.SetData(itemData);
+    }
+
+    public void SetScaleFactor(float scaleFactor)
+    {
+        itemMoveModel.SetScaleFactor(scaleFactor);
     }
 
     #endregion

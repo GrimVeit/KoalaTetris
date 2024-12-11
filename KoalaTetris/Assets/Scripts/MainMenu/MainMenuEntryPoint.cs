@@ -25,6 +25,8 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     private GlobalMachineState machineState;
 
+    private AdaptiveScreenPresenter adaptiveScreenPresenter;
+
     public void Awake()
     {
         viewContainer = sceneRoot.GetComponent<ViewContainer>();
@@ -66,7 +68,25 @@ public class MainMenuEntryPoint : MonoBehaviour
         machineState = new GlobalMachineState(sceneRoot, soundPresenter, triggerZonesPresenter, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
         machineState.Initialize();
 
+        adaptiveScreenPresenter = new AdaptiveScreenPresenter(new AdaptiveScreenModel());
+
+        ActivateGlobalEvents();
+
+        adaptiveScreenPresenter.Initialize();
+
         sceneRoot.Activate();
+    }
+
+    private void ActivateGlobalEvents()
+    {
+        adaptiveScreenPresenter.OnChangeScreenFactor += itemSpawnerPresenter.SetScaleFactor;
+        adaptiveScreenPresenter.OnChangeScreenFactor += fakeItemMovePresenter.SetScaleFactor;
+    }
+
+    private void DeactivateGlobalEvents()
+    {
+        adaptiveScreenPresenter.OnChangeScreenFactor -= itemSpawnerPresenter.SetScaleFactor;
+        adaptiveScreenPresenter.OnChangeScreenFactor -= fakeItemMovePresenter.SetScaleFactor;
     }
 
     private void Dispose()
@@ -84,13 +104,5 @@ public class MainMenuEntryPoint : MonoBehaviour
     private void OnDestroy()
     {
         Dispose();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            machineState.SetState(machineState.GetState<PauseState>());
-        }
     }
 }
