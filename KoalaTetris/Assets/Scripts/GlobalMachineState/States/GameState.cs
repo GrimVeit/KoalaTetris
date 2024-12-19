@@ -44,7 +44,7 @@ public class GameState : IGlobalState
 
     public void EnterState()
     {
-        triggerZonesPresenter.OnFailGame += ChangeStateToPause;
+        triggerZonesPresenter.OnFailGame += ChangeStateToLose;
 
         itemCatalogPresenter.OnSelectCurrentItem_Value += fakeItemMovePresenter.SetData;
         itemCatalogPresenter.OnSelectCurrentItem_Value += itemSpawnerPresenter.SetData;
@@ -68,7 +68,7 @@ public class GameState : IGlobalState
 
     public void ExitState()
     {
-        triggerZonesPresenter.OnFailGame -= ChangeStateToPause;
+        triggerZonesPresenter.OnFailGame -= ChangeStateToLose;
 
         itemCatalogPresenter.OnSelectCurrentItem_Value -= fakeItemMovePresenter.SetData;
         itemCatalogPresenter.OnSelectCurrentItem_Value -= itemSpawnerPresenter.SetData;
@@ -88,11 +88,11 @@ public class GameState : IGlobalState
         soundBackgroundGame.SetVolume(0.4f, 0, soundBackgroundGame.Stop);
     }
 
-    private void ChangeStateToPause()
+    private void ChangeStateToLose()
     {
         soundProvider.PlayOneShot("Button");
 
-        globalStateMachineControl.SetState(globalStateMachineControl.GetState<PauseState>());
+        globalStateMachineControl.SetState(globalStateMachineControl.GetState<LoseState>());
     }
 
     private void SelectSecondItem()

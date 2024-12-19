@@ -54,5 +54,10 @@ public class ItemCatalogPresenter
         catalogModel.SelectSecondItemData();
     }
 
+    public void SetItemDatas(ItemDatas itemDatas)
+    {
+        catalogModel.SetItemDatas(itemDatas);
+    }
+
     #endregion
 }

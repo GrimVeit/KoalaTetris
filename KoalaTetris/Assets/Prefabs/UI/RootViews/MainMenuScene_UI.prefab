@@ -254,6 +254,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59370386231afc040aa4f4fc618c4091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuPanel: {fileID: 0}
+  gamePanel: {fileID: 0}
+  gameHeaderPanel: {fileID: 0}
+  pauseHeaderPanel: {fileID: 0}
+  gameFooterPanel: {fileID: 0}
+  pauseFooterPanel: {fileID: 0}
 --- !u!114 &4314408796389292881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,6 +808,7 @@ MonoBehaviour:
       minSize: 1
       maxSize: 3
       isPlayAwake: 0
+  spawnEffects: []
 --- !u!1 &2908596307861864189
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,6 +917,7 @@ MonoBehaviour:
   to: {x: 0, y: 0, z: 0}
   time: 0.1
   canvasGroup: {fileID: 129742114410442744}
+  shakePanel: {fileID: 0}
 --- !u!1 &2959862652254342937
 GameObject:
   m_ObjectHideFlags: 0

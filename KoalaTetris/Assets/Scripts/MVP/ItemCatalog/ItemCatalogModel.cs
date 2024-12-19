@@ -32,6 +32,11 @@ public class ItemCatalogModel
 
     }
 
+    public void SetItemDatas(ItemDatas itemDatas)
+    {
+        this.itemDatas = itemDatas;
+    }
+
     public void SelectSecondItemData()
     {
         if(secondItemData != null)

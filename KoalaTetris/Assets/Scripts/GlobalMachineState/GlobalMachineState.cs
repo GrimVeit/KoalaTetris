@@ -18,8 +18,12 @@ public class GlobalMachineState : IGlobalStateMachineControl
         ScorePresenter scorePresenter)
     {
         states[typeof(GameState)] = new GameState(this, menuRoot, soundProvider, triggerZonesPresenter, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
-        states[typeof(PauseState)] = new PauseState(this, menuRoot, soundProvider, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
         states[typeof(StartState)] = new StartState(this, menuRoot, soundProvider, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
+        states[typeof(PauseState)] = new PauseState(this, menuRoot, soundProvider, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
+        
+        states[typeof(ModesState)] = new ModesState(this, menuRoot, soundProvider);
+        states[typeof(LoseState)] = new LoseState(this, menuRoot, soundProvider, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
+
     }
 
     public void Initialize()

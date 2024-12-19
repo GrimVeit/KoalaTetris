@@ -105,4 +105,9 @@ public class MainMenuEntryPoint : MonoBehaviour
     {
         Dispose();
     }
+
+    private void OnApplicationQuit()
+    {
+        Debug.Log("Application exit");
+    }
 }

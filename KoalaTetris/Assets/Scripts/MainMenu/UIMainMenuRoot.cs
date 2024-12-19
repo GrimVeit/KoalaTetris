@@ -8,7 +8,9 @@ public class UIMainMenuRoot : MonoBehaviour
     [SerializeField] private HeaderPanel gameHeaderPanel;
     [SerializeField] private HeaderPanel pauseHeaderPanel;
     [SerializeField] private FooterPanel gameFooterPanel;
-    [SerializeField] private FooterPanel pauseFooterPanel;
+    [SerializeField] private PauseFooterPanel pauseFooterPanel;
+
+    [SerializeField] private ModesPanel modesPanel;
 
     private Panel currentPanel;
 
@@ -22,6 +24,8 @@ public class UIMainMenuRoot : MonoBehaviour
         pauseHeaderPanel.Initialize();
         gameFooterPanel.Initialize();
         pauseFooterPanel.Initialize();
+
+        modesPanel.Initialize();
     }
 
     public void Activate()
@@ -52,6 +56,8 @@ public class UIMainMenuRoot : MonoBehaviour
         pauseHeaderPanel.Dispose();
         gameFooterPanel.Dispose();
         pauseFooterPanel.Dispose();
+
+        modesPanel.Dispose();
     }
 
     public void OpenMainMenuPanel()
@@ -62,6 +68,18 @@ public class UIMainMenuRoot : MonoBehaviour
     public void OpenGamePanel()
     {
         OpenPanel(gamePanel);
+    }
+
+
+
+    public void OpenModesPanel()
+    {
+        OpenOtherPanel(modesPanel);
+    }
+
+    public void CloseModesPanel()
+    {
+        CloseOtherPanel(modesPanel);
     }
 
     public void OpenGamePanels()
@@ -107,4 +125,28 @@ public class UIMainMenuRoot : MonoBehaviour
     {
         panel.DeactivatePanel();
     }
+
+    #region Input
+
+    public event Action OnRestartGame_PauseFooterPanel
+    {
+        add { pauseFooterPanel.OnClickToRestartButton += value; }
+        remove { pauseFooterPanel.OnClickToRestartButton -= value; }
+    }
+
+    public event Action OnOpenModes_PauseFooterPanel
+    {
+        add { pauseFooterPanel.OnClickToModesButton += value; }
+        remove { pauseFooterPanel.OnClickToModesButton -= value; }
+    }
+
+
+
+    public event Action OnBack_ModesPanel
+    {
+        add { modesPanel.OnClickToBack += value; }
+        remove { modesPanel.OnClickToBack -= value; }
+    }
+
+    #endregion
 }

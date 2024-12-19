@@ -16,7 +16,6 @@ public class PauseState : IGlobalState
     private IGlobalStateMachineControl globalStateMachineControl;
 
     private ISoundProvider soundProvider;
-    private ISound soundFailGame;
 
     public PauseState(
         IGlobalStateMachineControl globalStateMachineControl,
@@ -36,38 +35,37 @@ public class PauseState : IGlobalState
         this.itemSpawnerPresenter = itemSpawnerPresenter;
         this.itemsPresenter = itemsPresenter;
         this.scorePresenter = scorePresenter;
-
-        soundFailGame = soundProvider.GetSound("FailGame");
     }
 
     public void EnterState()
     {
-        fakeItemMovePresenter.OnStartMove += ChangeStateToGame;
-
-        soundFailGame.PlayOneShot();
+        sceneRoot.OnRestartGame_PauseFooterPanel += ChangeStateToGame;
+        sceneRoot.OnOpenModes_PauseFooterPanel += ChangeStateToModes;
 
         sceneRoot.OpenPausePanels();
-
-        soundFailGame.Play();
-        soundFailGame.SetVolume(0, 0.6f);
-
-        itemsPresenter.ActivateAnimationFail();
     }
 
     public void ExitState()
     {
-        fakeItemMovePresenter.OnStartMove -= ChangeStateToGame;
+        sceneRoot.OnRestartGame_PauseFooterPanel -= ChangeStateToGame;
+        sceneRoot.OnOpenModes_PauseFooterPanel -= ChangeStateToModes;
 
-        itemsPresenter.RemoveAllItems();
         sceneRoot.ClosePausePanels();
-
-        soundFailGame.SetVolume(0.6f, 0, soundFailGame.Stop);
     }
 
     private void ChangeStateToGame()
     {
         soundProvider.PlayOneShot("Button");
 
+        itemsPresenter.RemoveAllItems();
+
         globalStateMachineControl.SetState(globalStateMachineControl.GetState<GameState>());
+    }
+
+    private void ChangeStateToModes()
+    {
+        soundProvider.PlayOneShot("Button");
+
+        globalStateMachineControl.SetState(globalStateMachineControl.GetState<ModesState>());
     }
 }

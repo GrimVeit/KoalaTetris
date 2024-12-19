@@ -54,4 +54,9 @@ public class ItemSpawnerModel
     {
         OnChangeScaleFactor?.Invoke(scaleFactor);
     }
+
+    public void TestPrefab()
+    {
+        Debug.Log("Current version 0.78v. 767 a 2");
+    }
 }
