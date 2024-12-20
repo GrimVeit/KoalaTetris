@@ -73,14 +73,14 @@ public class FakeItemMoveView : View
     {
         //Debug.Log("MOVE");
 
-        vectorX = Mathf.Clamp(vector.x, leftBoundary.position.x + fakeItem.Size.x / 3, rightBoundary.position.x - fakeItem.Size.x / 3);
+        vectorX = Mathf.Clamp(vector.x, leftBoundary.position.x + fakeItem.Size.x / 2, rightBoundary.position.x - fakeItem.Size.x / 2);
     }
 
     public void Teleport(Vector3 vector)
     {
         //Debug.Log("TELEPORT");
 
-        vectorX = Mathf.Clamp(vector.x, leftBoundary.position.x + fakeItem.Size.x / 3, rightBoundary.position.x - fakeItem.Size.x / 3);
+        vectorX = Mathf.Clamp(vector.x, leftBoundary.position.x + fakeItem.Size.x / 2, rightBoundary.position.x - fakeItem.Size.x / 2);
 
         fakeItem.Move(vectorX);
     }

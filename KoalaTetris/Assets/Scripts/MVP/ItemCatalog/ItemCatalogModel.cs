@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class ItemCatalogModel
@@ -14,17 +15,9 @@ public class ItemCatalogModel
 
     private float totalWeightDropChance = 0;
 
-    public ItemCatalogModel(ItemDatas itemDatas)
-    {
-        this.itemDatas = itemDatas;
-    }
-
     public void Initialize()
     {
-        for (int i = 0; i < itemDatas.Items.Count; i++)
-        {
-            totalWeightDropChance += itemDatas.Items[i].ChanceDrop;
-        }
+
     }
 
     public void Dispose()
@@ -35,6 +28,10 @@ public class ItemCatalogModel
     public void SetItemDatas(ItemDatas itemDatas)
     {
         this.itemDatas = itemDatas;
+
+        Debug.Log(itemDatas.ToString());
+
+        SelectSecondItemData();
     }
 
     public void SelectSecondItemData()
@@ -57,6 +54,14 @@ public class ItemCatalogModel
 
     private ItemData RandomItemData()
     {
+        totalWeightDropChance = 0;
+
+        for (int i = 0; i < this.itemDatas.Items.Count; i++)
+        {
+            totalWeightDropChance += this.itemDatas.Items[i].ChanceDrop;
+        }
+
+
         float randomValue = Random.Range(0, totalWeightDropChance);
 
         float calculateValue = 0;

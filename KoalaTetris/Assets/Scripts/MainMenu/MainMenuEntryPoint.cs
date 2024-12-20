@@ -4,8 +4,7 @@ using UnityEngine;
 public class MainMenuEntryPoint : MonoBehaviour
 {
     [SerializeField] private Sounds sounds;
-    [SerializeField] private ItemDatas itemDatas;
-    [SerializeField] private Items items;
+    [SerializeField] private GameTypes gameTypes;
     [SerializeField] private UIMainMenuRoot sceneRoot;
     private ViewContainer viewContainer;
 
@@ -22,6 +21,8 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     private TriggerZonesPresenter triggerZonesPresenter;
     private ScaleEffectPresenter scaleEffectPresenter;
+
+    private GameTypePresenter gameTypePresenter;
 
     private GlobalMachineState machineState;
 
@@ -43,11 +44,9 @@ public class MainMenuEntryPoint : MonoBehaviour
         fakeItemMovePresenter = new FakeItemMovePresenter(new FakeItemMoveModel(soundPresenter), viewContainer.GetView<FakeItemMoveView>());
         fakeItemMovePresenter.Initialize();
 
-        itemCatalogPresenter = new ItemCatalogPresenter(new ItemCatalogModel(itemDatas), viewContainer.GetView<ItemCatalogView>());
-        itemCatalogPresenter.Initialize();
+        itemCatalogPresenter = new ItemCatalogPresenter(new ItemCatalogModel(), viewContainer.GetView<ItemCatalogView>());
 
-        itemSpawnerPresenter = new ItemSpawnerPresenter(new ItemSpawnerModel(items), viewContainer.GetView<ItemSpawnerView>());
-        itemSpawnerPresenter.Initialize();
+        itemSpawnerPresenter = new ItemSpawnerPresenter(new ItemSpawnerModel(), viewContainer.GetView<ItemSpawnerView>());
 
         itemsPresenter = new ItemsPresenter(new ItemsModel(12, particleEffectPresenter, soundPresenter));
         itemsPresenter.Initialize();
@@ -61,17 +60,22 @@ public class MainMenuEntryPoint : MonoBehaviour
         scaleEffectPresenter = new ScaleEffectPresenter(new ScaleEffectModel(), viewContainer.GetView<ScaleEffectView>());
         scaleEffectPresenter.Initialize();
 
+        gameTypePresenter = new GameTypePresenter(new GameTypeModel(gameTypes), viewContainer.GetView<GameTypesView>());
+
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.SetParticleEffectProvider(particleEffectPresenter);
         sceneRoot.Initialize();
 
-        machineState = new GlobalMachineState(sceneRoot, soundPresenter, triggerZonesPresenter, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter);
+        machineState = new GlobalMachineState(sceneRoot, soundPresenter, triggerZonesPresenter, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter, gameTypePresenter);
         machineState.Initialize();
 
         adaptiveScreenPresenter = new AdaptiveScreenPresenter(new AdaptiveScreenModel());
 
         ActivateGlobalEvents();
 
+        gameTypePresenter.Initialize();
+        itemSpawnerPresenter.Initialize();
+        itemCatalogPresenter.Initialize();
         adaptiveScreenPresenter.Initialize();
 
         sceneRoot.Activate();
@@ -81,16 +85,23 @@ public class MainMenuEntryPoint : MonoBehaviour
     {
         adaptiveScreenPresenter.OnChangeScreenFactor += itemSpawnerPresenter.SetScaleFactor;
         adaptiveScreenPresenter.OnChangeScreenFactor += fakeItemMovePresenter.SetScaleFactor;
+
+        gameTypePresenter.OnChooseGameType_Value += itemCatalogPresenter.SetItemDatas;
+        gameTypePresenter.OnChooseGameType_Value += itemSpawnerPresenter.SetItems;
     }
 
     private void DeactivateGlobalEvents()
     {
         adaptiveScreenPresenter.OnChangeScreenFactor -= itemSpawnerPresenter.SetScaleFactor;
         adaptiveScreenPresenter.OnChangeScreenFactor -= fakeItemMovePresenter.SetScaleFactor;
+
+        gameTypePresenter.OnChooseGameType_Value -= itemCatalogPresenter.SetItemDatas;
+        gameTypePresenter.OnChooseGameType_Value -= itemSpawnerPresenter.SetItems;
     }
 
     private void Dispose()
     {
+        DeactivateGlobalEvents();
         sceneRoot.Deactivate();
 
         sceneRoot?.Dispose();
@@ -99,6 +110,11 @@ public class MainMenuEntryPoint : MonoBehaviour
         itemSpawnerPresenter?.Dispose();
         itemsPresenter?.Dispose();
         scorePresenter?.Dispose();
+
+        triggerZonesPresenter?.Dispose();
+        scaleEffectPresenter?.Dispose();
+        gameTypePresenter?.Dispose();adaptiveScreenPresenter?.Dispose();
+        machineState?.Dispose();
     }
 
     private void OnDestroy()

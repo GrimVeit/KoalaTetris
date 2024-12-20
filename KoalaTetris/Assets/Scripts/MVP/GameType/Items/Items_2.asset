@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2d7bd9f1a1bb1f4c92336a7d047cfea, type: 3}
-  m_Name: Kangaroo
+  m_Script: {fileID: 11500000, guid: 5bcfd64c9b73c25429359789648b686a, type: 3}
+  m_Name: Items_2
   m_EditorClassIdentifier: 
-  Items:
-  - id: 0
-    sprite: {fileID: 21300000, guid: 29138d95a786acc4ead693efe4b13f40, type: 3}
-    width: 142
-    height: 128
-    chanceDrop: 0.9
+  ItemsPrefabs:
+  - {fileID: 3171655979181892584, guid: 7022153cb6bc98340954b289adda74e3, type: 3}

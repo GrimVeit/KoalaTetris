@@ -54,9 +54,9 @@ public class ItemCatalogPresenter
         catalogModel.SelectSecondItemData();
     }
 
-    public void SetItemDatas(ItemDatas itemDatas)
+    public void SetItemDatas(GameType gameType)
     {
-        catalogModel.SetItemDatas(itemDatas);
+        catalogModel.SetItemDatas(gameType.ItemsData);
     }
 
     #endregion

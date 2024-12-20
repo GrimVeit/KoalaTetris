@@ -49,6 +49,11 @@ public class ItemSpawnerPresenter
         remove { itemSpawnerModel.OnItemSpawned -= value; }
     }
 
+    public void SetItems(GameType gameType)
+    {
+        itemSpawnerModel.SetItems(gameType.Items);
+    }
+
     public void SetData(ItemData itemData)
     {
         itemSpawnerModel.SetData(itemData);

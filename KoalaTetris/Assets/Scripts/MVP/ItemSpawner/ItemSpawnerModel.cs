@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -15,7 +13,7 @@ public class ItemSpawnerModel
 
     private Item currentItemPrefab;
 
-    public ItemSpawnerModel(Items items)
+    public void SetItems(Items items)
     {
         this.items = items;
     }

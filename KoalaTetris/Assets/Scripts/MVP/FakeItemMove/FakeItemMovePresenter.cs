@@ -50,11 +50,6 @@ public class FakeItemMovePresenter
         itemMoveModel.OnChangeScaleFactor += itemMoveView.SetScaleFactor;
     }
 
-    private void ItemMoveView_OnDeactivatedItem()
-    {
-        throw new NotImplementedException();
-    }
-
     private void DeactivateEvents()
     {
         itemMoveView.OnPointerDown -= itemMoveModel.StartMove;

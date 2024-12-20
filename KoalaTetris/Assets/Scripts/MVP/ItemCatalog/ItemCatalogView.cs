@@ -9,6 +9,8 @@ public class ItemCatalogView : View
 
     public void DisplaySecondItem(ItemData itemData)
     {
+        Debug.Log(itemData);
+
         imageSecondItem.sprite = itemData.Sprite;
         imageSecondItem.rectTransform.sizeDelta = new Vector2(
             60 * (itemData.Width / itemData.Height),
