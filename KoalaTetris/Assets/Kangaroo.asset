@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d9ad5a4a46584c47a31bfb44e56ad6a, type: 3}
+  m_Name: Kangaroo
+  m_EditorClassIdentifier: 
+  colorText: {r: 0.2784314, g: 0.23921569, b: 0.4862745, a: 1}
+  spriteBackground: {fileID: 21300000, guid: 3fa2ef9a4dfbe044ea116c54abf83628, type: 3}
+  spriteGameOver: {fileID: 21300000, guid: 4a53d009b64f15747b1bc9623d6fb932, type: 3}
+  spriteBarAllKangaroo: {fileID: 21300000, guid: d1be713a865e8d64e9fbd198ce5f8568, type: 3}
+  spriteBarNextItem: {fileID: 21300000, guid: 8694714826447af428ec807f6eee9136, type: 3}
+  spriteBarScorePoints: {fileID: 21300000, guid: 6342db7bbd65299479772443333ebe64, type: 3}
+  spriteButtonSettings: {fileID: 21300000, guid: fa9dc2c11539b604e8e577fb04268574, type: 3}
+  spriteButtonSound: {fileID: 21300000, guid: 1b399e535627edf46926f5cb6fbba0e2, type: 3}
+  spriteImageCrown: {fileID: 21300000, guid: d61ba9d9539d2bd4fa9c2c0d41825cca, type: 3}

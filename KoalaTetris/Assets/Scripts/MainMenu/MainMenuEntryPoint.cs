@@ -23,6 +23,7 @@ public class MainMenuEntryPoint : MonoBehaviour
     private ScaleEffectPresenter scaleEffectPresenter;
 
     private GameTypePresenter gameTypePresenter;
+    private DesignPresenter designPresenter;
 
     private GlobalMachineState machineState;
 
@@ -62,6 +63,9 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         gameTypePresenter = new GameTypePresenter(new GameTypeModel(gameTypes), viewContainer.GetView<GameTypesView>());
 
+        designPresenter = new DesignPresenter(new DesignModel(), viewContainer.GetView<DesignView>());
+        designPresenter.Initialize();
+
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.SetParticleEffectProvider(particleEffectPresenter);
         sceneRoot.Initialize();
@@ -88,6 +92,7 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         gameTypePresenter.OnChooseGameType_Value += itemCatalogPresenter.SetItemDatas;
         gameTypePresenter.OnChooseGameType_Value += itemSpawnerPresenter.SetItems;
+        gameTypePresenter.OnChooseGameType_Value += designPresenter.SetDesign;
     }
 
     private void DeactivateGlobalEvents()
@@ -97,6 +102,7 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         gameTypePresenter.OnChooseGameType_Value -= itemCatalogPresenter.SetItemDatas;
         gameTypePresenter.OnChooseGameType_Value -= itemSpawnerPresenter.SetItems;
+        gameTypePresenter.OnChooseGameType_Value -= designPresenter.SetDesign;
     }
 
     private void Dispose()
@@ -113,7 +119,9 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         triggerZonesPresenter?.Dispose();
         scaleEffectPresenter?.Dispose();
-        gameTypePresenter?.Dispose();adaptiveScreenPresenter?.Dispose();
+        gameTypePresenter?.Dispose();
+        adaptiveScreenPresenter?.Dispose();
+        designPresenter?.Dispose();
         machineState?.Dispose();
     }
 

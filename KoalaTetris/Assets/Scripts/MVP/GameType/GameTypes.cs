@@ -21,8 +21,10 @@ public class GameType
     [SerializeField] private int id;
     [SerializeField] private Items items;
     [SerializeField] private ItemDatas itemsData;
+    [SerializeField] private Design design;
 
     public int ID => id;
     public Items Items => items;
     public ItemDatas ItemsData => itemsData;
+    public Design Design => design;
 }

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d9ad5a4a46584c47a31bfb44e56ad6a, type: 3}
+  m_Name: Bears
+  m_EditorClassIdentifier: 
+  colorText: {r: 0.23137255, g: 0.31764707, b: 0.23137255, a: 1}
+  spriteBackground: {fileID: 21300000, guid: ea636008f661da74aa29d56edb0f8f10, type: 3}
+  spriteGameOver: {fileID: 21300000, guid: a254e2c5fa40ea44fa04dca542bc926d, type: 3}
+  spriteBarAllKangaroo: {fileID: 21300000, guid: a2e6d1b5c5f17a84781e680a1042ea11, type: 3}
+  spriteBarNextItem: {fileID: 21300000, guid: 4d2ed7da7776aca4ba8a064d28c5e444, type: 3}
+  spriteBarScorePoints: {fileID: 21300000, guid: 53a58d69a71963c4e8179f98e954468f, type: 3}
+  spriteButtonSettings: {fileID: 21300000, guid: 53f52cc32d1bb394a8bca8867cf85aa4, type: 3}
+  spriteButtonSound: {fileID: 21300000, guid: 51610bd7e45a1954f92b32fbc4d6a780, type: 3}
+  spriteImageCrown: {fileID: 21300000, guid: 4c0e6ab30bac86b478ebd5c3fd462c31, type: 3}
