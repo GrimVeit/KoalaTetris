@@ -18,3 +18,58 @@ MonoBehaviour:
     width: 143
     height: 128
     chanceDrop: 0.9
+  - id: 1
+    sprite: {fileID: 21300000, guid: 2676f4308cd161f43a1d738cab03664a, type: 3}
+    width: 211
+    height: 170
+    chanceDrop: 0.7
+  - id: 2
+    sprite: {fileID: 21300000, guid: 50b64709a4647604aa004347067cc5d1, type: 3}
+    width: 239
+    height: 202
+    chanceDrop: 0.6
+  - id: 3
+    sprite: {fileID: 21300000, guid: c425b7b266139e8479c8b6eba440bf57, type: 3}
+    width: 275
+    height: 210
+    chanceDrop: 0.5
+  - id: 4
+    sprite: {fileID: 21300000, guid: 080d046cb72d8024d9e8b573ae1d95ce, type: 3}
+    width: 330
+    height: 235
+    chanceDrop: 0.4
+  - id: 5
+    sprite: {fileID: 21300000, guid: 4e24ce401a99b7042adf92c54c8297c9, type: 3}
+    width: 332
+    height: 266
+    chanceDrop: 0.2
+  - id: 6
+    sprite: {fileID: 21300000, guid: 1fb5fd8ca4ca7bd478549bd7ca7d5c09, type: 3}
+    width: 250
+    height: 340
+    chanceDrop: 0.1
+  - id: 7
+    sprite: {fileID: 21300000, guid: d45bff166ceb87f49a9fb1f72a03ba7f, type: 3}
+    width: 250
+    height: 415
+    chanceDrop: 0
+  - id: 8
+    sprite: {fileID: 21300000, guid: fb7250928bb581745a062e3444cf9ecc, type: 3}
+    width: 270
+    height: 479.5
+    chanceDrop: 0
+  - id: 9
+    sprite: {fileID: 21300000, guid: de114c4d45b7133489b26229ff72646c, type: 3}
+    width: 340
+    height: 500
+    chanceDrop: 0
+  - id: 10
+    sprite: {fileID: 21300000, guid: 6c3182f571df54b4980441187e9efbd2, type: 3}
+    width: 442.9
+    height: 523.8
+    chanceDrop: 0
+  - id: 11
+    sprite: {fileID: 21300000, guid: 5193c3f52144ad34abd5ba19854c27a6, type: 3}
+    width: 760
+    height: 360.8
+    chanceDrop: 0
