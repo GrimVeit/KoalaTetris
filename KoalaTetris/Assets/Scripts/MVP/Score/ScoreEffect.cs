@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -18,8 +19,18 @@ public class ScoreEffect : MonoBehaviour
         textScore.text = "+" + score.ToString();
     }
 
-    public void Play(Transform transform)
+    public void Play(Transform transform, int scale, int timeout)
     {
+        Coroutines.Start(PlayCoroutine(transform, scale, timeout));
+    }
+
+    private IEnumerator PlayCoroutine(Transform transform, int scale, int timeout)
+    {
+        this.transform.localScale = new Vector3(scale, scale, scale);
+
+        yield return new WaitForSeconds (timeout);
+
+        this.transform.DOScale(Vector3.one, 0.45f);
         this.transform.DOLocalMove(transform.localPosition, 0.5f).OnComplete(() =>
         {
             OnEndMove?.Invoke(this, score);

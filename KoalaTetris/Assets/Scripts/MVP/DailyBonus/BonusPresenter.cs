@@ -93,7 +93,7 @@ public class BonusPresenter
         remove { bonusModel.OnUnlockGame_ID -= value; }
     }
 
-    public event Action<Vector3, int> OnScoreMultiplier_Size
+    public event Action<Vector3, int, int, int> OnScoreMultiplier_Size
     {
         add { bonusModel.OnScoreMultiplier_Size += value; }
         remove { bonusModel.OnScoreMultiplier_Size -= value; }

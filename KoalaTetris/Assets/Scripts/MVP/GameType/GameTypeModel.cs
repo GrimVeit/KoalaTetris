@@ -54,7 +54,7 @@ public class GameTypeModel
 
         for (int i = 0; i < progressDatas.Count; i++)
         {
-            if (progressDatas[i].IsSelect)
+            if (progressDatas[i].IsOpen)
                 OnOpenGameType?.Invoke(progressDatas[i].Number);
         }
 

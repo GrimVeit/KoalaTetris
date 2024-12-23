@@ -23,6 +23,7 @@ public class BonusView : View
     [SerializeField] private float maxSpinSpeed;
     [SerializeField] private float minDuration;
     [SerializeField] private float maxDuration;
+    [SerializeField] private Transform transformCenter;
 
     private IEnumerator rotateSpin_Coroutine;
 
@@ -85,7 +86,7 @@ public class BonusView : View
 
         Bonus bonus = GetClosestBonus();
         Debug.Log(bonus.Value);
-        OnGetBonus?.Invoke(textCoins.transform, bonus);
+        OnGetBonus?.Invoke(transformCenter, bonus);
         OnEndSpin?.Invoke();
     }
 

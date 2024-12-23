@@ -45,8 +45,8 @@ public class BonusState : IGlobalState
         sceneRoot.OnBack_BonusPanel -= sceneRoot.OpenChooseBonusFooterPanel;
         sceneRoot.OnBack_BonusPanel -= sceneRoot.CloseBonusPanel;
 
-        bonusPresenter.OnBonusDesign += ChangeStateToBonusDesign;
-        bonusPresenter.OnBonusScore += ChangeStateToBonusScore;
+        bonusPresenter.OnBonusDesign -= ChangeStateToBonusDesign;
+        bonusPresenter.OnBonusScore -= ChangeStateToBonusScore;
 
         sceneRoot.CloseGameHeaderPanel();
         sceneRoot.CloseChooseBonusFooterPanel();

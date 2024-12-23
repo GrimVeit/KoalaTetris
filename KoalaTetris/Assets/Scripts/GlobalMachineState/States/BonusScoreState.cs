@@ -42,12 +42,9 @@ public class BonusScoreState : IGlobalState
         yield return new WaitForSeconds(1);
 
         sceneRoot.CloseBonusPanel();
-        
-        yield return new WaitForSeconds(1f);
-
         bonusPresenter.SubmitBonus();
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3f);
 
         ChangeStateToPause();
 

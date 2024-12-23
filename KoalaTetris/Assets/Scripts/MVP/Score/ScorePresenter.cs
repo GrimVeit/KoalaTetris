@@ -48,6 +48,11 @@ public class ScorePresenter
 
     #region Input
 
+    public void AddScore(Vector3 vector, int score, int scale)
+    {
+        scoreView.SpawnScoreEffect(vector, score, scale);
+    }
+
     public void AddScore(Vector3 vector, int score)
     {
         scoreView.SpawnScoreEffect(vector, score);
@@ -63,12 +68,12 @@ public class ScorePresenter
         scoreModel.ClearScore();
     }
 
-    public void SetMultiplier(Vector3 vector, int size)
+    public void SetMultiplier(Vector3 vector, int size, int scale = 1, int timeout = 0)
     {
         Debug.Log(size);
         Debug.Log(scoreModel.CurrentRecord.ToString());
 
-        scoreView.SpawnScoreEffect(vector, scoreModel.CurrentRecord * (size - 1)); 
+        scoreView.SpawnScoreEffect(vector, scoreModel.CurrentRecord * (size - 1), scale, timeout); 
 
         //scoreModel.SetMultiplier(size);
     }

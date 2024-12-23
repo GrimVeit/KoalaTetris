@@ -9,7 +9,7 @@ public class BonusModel
 
     public event Action<string> OnGetBonusDescription;
     public event Action<int> OnUnlockGame_ID;
-    public event Action<Vector3, int> OnScoreMultiplier_Size;
+    public event Action<Vector3, int, int, int> OnScoreMultiplier_Size;
 
     public event Action OnAvailableBonusButton;
     public event Action OnUnvailableBonusButton;
@@ -86,7 +86,7 @@ public class BonusModel
         if (currentBonus.BonusType == BonusType.ScoreMultiplier)
         {
             if (currentBonus.Value != 0)
-                OnScoreMultiplier_Size?.Invoke(transformPosition.localPosition, currentBonus.Value);
+                OnScoreMultiplier_Size?.Invoke(transformPosition.position, currentBonus.Value, 4, 2);
         }
         else
         {

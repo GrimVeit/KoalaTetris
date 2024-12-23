@@ -49,14 +49,14 @@ public class ScoreView : View
     }
 
 
-    public void SpawnScoreEffect(Vector3 vector, int score)
+    public void SpawnScoreEffect(Vector3 vector, int score, int scale = 1, int timeOut = 0)
     {
         var scoreEffect = Instantiate(scoreEffectPrefab, parentScoreEffects.transform); 
         scoreEffect.transform.SetPositionAndRotation(vector, scoreEffectPrefab.transform.rotation);
 
         scoreEffect.OnEndMove += AddScore;
         scoreEffect.SetScore(score);
-        scoreEffect.Play(transformEndScoreEffects);
+        scoreEffect.Play(transformEndScoreEffects, scale, timeOut);
     }
 
     private void AddScore(ScoreEffect scoreEffect, int score)
