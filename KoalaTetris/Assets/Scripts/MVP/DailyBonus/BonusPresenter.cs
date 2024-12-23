@@ -36,6 +36,7 @@ public class BonusPresenter
         bonusModel.OnActivateSpin += bonusView.StartSpin;
         bonusModel.OnUnvailableBonusButton += bonusView.DeactivateSpinButton;
         bonusModel.OnAvailableBonusButton += bonusView.ActivateSpinButton;
+        bonusModel.OnClearResult += bonusView.ClearResult;
     }
 
     private void DeactivateEvents()
@@ -49,6 +50,7 @@ public class BonusPresenter
         bonusModel.OnActivateSpin -= bonusView.StartSpin;
         bonusModel.OnUnvailableBonusButton -= bonusView.DeactivateSpinButton;
         bonusModel.OnAvailableBonusButton -= bonusView.ActivateSpinButton;
+        bonusModel.OnClearResult -= bonusView.ClearResult;
     }
 
     #region
@@ -61,6 +63,11 @@ public class BonusPresenter
     public void SetUnvailable()
     {
         bonusModel.SetUnvailable();
+    }
+
+    public void ClearResult()
+    {
+        bonusModel.ClearResult();
     }
 
     //public event Action<int> OnGetBonus

@@ -34,6 +34,7 @@ public class BonusState : IGlobalState
     {
         sceneRoot.OnClickToNoThankOpenBonusPanel_ChoosebonusPanel += ChangeStateToPause;
         sceneRoot.OnClickToOpenBonusPanel_ChooseBonusPanel += sceneRoot.OpenBonusPanel;
+        sceneRoot.OnClickToOpenBonusPanel_ChooseBonusPanel += sceneRoot.CloseChooseBonusFooterPanel;
         sceneRoot.OnBack_BonusPanel += sceneRoot.OpenChooseBonusFooterPanel;
         sceneRoot.OnBack_BonusPanel += sceneRoot.CloseBonusPanel;
 
@@ -41,6 +42,7 @@ public class BonusState : IGlobalState
         bonusPresenter.OnBonusDesign += CheckBonusDesign;
         bonusPresenter.OnBonusScore += CheckBonusScore;
 
+        bonusPresenter.ClearResult();
         sceneRoot.OpenChooseBonusFooterPanel();
         bonusPresenter.SetAvailable();
 
@@ -50,6 +52,7 @@ public class BonusState : IGlobalState
     {
         sceneRoot.OnClickToNoThankOpenBonusPanel_ChoosebonusPanel -= ChangeStateToPause;
         sceneRoot.OnClickToOpenBonusPanel_ChooseBonusPanel -= sceneRoot.OpenBonusPanel;
+        sceneRoot.OnClickToOpenBonusPanel_ChooseBonusPanel -= sceneRoot.CloseChooseBonusFooterPanel;
         sceneRoot.OnBack_BonusPanel -= sceneRoot.OpenChooseBonusFooterPanel;
         sceneRoot.OnBack_BonusPanel -= sceneRoot.CloseBonusPanel;
 

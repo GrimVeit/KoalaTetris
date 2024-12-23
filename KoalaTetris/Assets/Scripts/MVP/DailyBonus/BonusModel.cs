@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class BonusModel
 {
+    public event Action OnClearResult;
     public event Action<int> OnBonusScore;
     public event Action<int> OnBonusDesign;
 
@@ -91,8 +92,6 @@ public class BonusModel
         {
             OnUnlockGame_ID?.Invoke(transformPosition.position, currentBonus.Value, 2, 2);
         }
-
-        OnGetBonusDescription?.Invoke(currentBonus.Description);
     }
 
     public void OnSpin(float speed)
@@ -113,5 +112,10 @@ public class BonusModel
     public void OnEndSpin()
     {
         //soundSpin.Stop();
+    }
+
+    public void ClearResult()
+    {
+        OnClearResult?.Invoke();
     }
 }

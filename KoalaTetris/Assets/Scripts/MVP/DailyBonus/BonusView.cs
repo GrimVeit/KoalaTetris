@@ -47,6 +47,11 @@ public class BonusView : View
         buttonDailyBonus.gameObject.SetActive(true);
     }
 
+    public void ClearResult()
+    {
+        textCoins.text = "";
+    }
+
     public void DisplayDescription(string description)
     {
         textCoins.text = description;
