@@ -107,6 +107,12 @@ public class GameTypeModel
     }
 
 
+    public bool IsOpenTypeGame(int id)
+    {
+        return progressDatas.FirstOrDefault(data => data.Number == id).IsOpen;
+    }
+
+
     private int GetSelectProgressData()
     {
         return progressDatas.FirstOrDefault(data => data.IsSelect).Number;

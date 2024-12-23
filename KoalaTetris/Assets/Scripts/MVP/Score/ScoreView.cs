@@ -63,6 +63,8 @@ public class ScoreView : View
     {
         OnAddScore?.Invoke(score);
 
+        scoreEffect.OnEndMove -= AddScore;
+
         scoreEffect.DestroyEffect();
     }
 }

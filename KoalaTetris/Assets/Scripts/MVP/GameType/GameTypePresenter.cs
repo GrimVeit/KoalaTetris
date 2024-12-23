@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class GameTypePresenter
 {
@@ -30,6 +31,7 @@ public class GameTypePresenter
     private void ActivateEvents()
     {
         view.OnChooseType += model.SelectGame;
+        view.OnOpenGame += model.UnlockGame;
 
         model.OnOpenGameType += view.OpenGame;
     }
@@ -37,6 +39,7 @@ public class GameTypePresenter
     private void DeactivateEvents()
     {
         view.OnChooseType -= model.SelectGame;
+        view.OnOpenGame -= model.UnlockGame;
 
         model.OnOpenGameType -= view.OpenGame;
     }
@@ -58,6 +61,16 @@ public class GameTypePresenter
     public void UnlockGame(int id)
     {
         model.UnlockGame(id);
+    }
+
+    public void UnlockGame(Vector3 vector, int idGame, int scale = 1, int timeOut = 0)
+    {
+        view.SpawnGameTypeEffect(vector, idGame, scale, timeOut);
+    }
+
+    public bool IsOpenTypeGame(int id)
+    {
+        return model.IsOpenTypeGame(id);
     }
 
     #endregion

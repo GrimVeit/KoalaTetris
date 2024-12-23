@@ -69,13 +69,13 @@ public class BonusPresenter
     //    remove { dailyBonusModel.OnGetBonusDescription -= value; }
     //}
 
-    public event Action OnBonusScore
+    public event Action<int> OnBonusScore
     {
         add { bonusModel.OnBonusScore += value; }
         remove { bonusModel.OnBonusScore -= value; }
     }
 
-    public event Action OnBonusDesign
+    public event Action<int> OnBonusDesign
     {
         add { bonusModel.OnBonusDesign += value; }
         remove { bonusModel.OnBonusDesign -= value; }
@@ -87,7 +87,7 @@ public class BonusPresenter
         remove { bonusModel.OnActivateSpin -= value; }
     }
 
-    public event Action<int> OnUnlockGame_ID
+    public event Action<Vector3, int, int, int> OnUnlockGame_ID
     {
         add { bonusModel.OnUnlockGame_ID += value; }
         remove { bonusModel.OnUnlockGame_ID -= value; }

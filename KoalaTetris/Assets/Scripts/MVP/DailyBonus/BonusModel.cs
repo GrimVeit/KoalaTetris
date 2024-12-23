@@ -1,14 +1,13 @@
 using System;
 using UnityEngine;
-using UnityEngine.XR;
 
 public class BonusModel
 {
-    public event Action OnBonusScore;
-    public event Action OnBonusDesign;
+    public event Action<int> OnBonusScore;
+    public event Action<int> OnBonusDesign;
 
     public event Action<string> OnGetBonusDescription;
-    public event Action<int> OnUnlockGame_ID;
+    public event Action<Vector3, int, int, int> OnUnlockGame_ID;
     public event Action<Vector3, int, int, int> OnScoreMultiplier_Size;
 
     public event Action OnAvailableBonusButton;
@@ -71,11 +70,11 @@ public class BonusModel
 
         if (currentBonus.BonusType == BonusType.ScoreMultiplier)
         {
-            OnBonusScore?.Invoke();
+            OnBonusScore?.Invoke(bonus.Value);
         }
         else
         {
-            OnBonusDesign?.Invoke();
+            OnBonusDesign?.Invoke(bonus.Value);
         }
     }
 
@@ -90,7 +89,7 @@ public class BonusModel
         }
         else
         {
-            OnUnlockGame_ID?.Invoke(currentBonus.Value);
+            OnUnlockGame_ID?.Invoke(transformPosition.position, currentBonus.Value, 2, 2);
         }
 
         OnGetBonusDescription?.Invoke(currentBonus.Description);

@@ -2,25 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BonusDesignState : IGlobalState
+public class BonusNoneState : IGlobalState
 {
     private UIMainMenuRoot sceneRoot;
-
-    private BonusPresenter bonusPresenter;
 
     private IGlobalStateMachineControl globalStateMachineControl;
     private ISoundProvider soundProvider;
 
-    public BonusDesignState(
+    public BonusNoneState(
         IGlobalStateMachineControl globalStateMachineControl,
         UIMainMenuRoot sceneRoot,
-        ISoundProvider soundProvider,
-        BonusPresenter bonusPresenter)
+        ISoundProvider soundProvider)
     {
         this.globalStateMachineControl = globalStateMachineControl;
         this.sceneRoot = sceneRoot;
         this.soundProvider = soundProvider;
-        this.bonusPresenter = bonusPresenter;
     }
 
     public void EnterState()
@@ -37,14 +33,8 @@ public class BonusDesignState : IGlobalState
 
     private IEnumerator Test()
     {
-        yield return new WaitForSeconds(1);
-
+        yield return new WaitForSeconds(1f);
         sceneRoot.CloseBonusPanel();
-        sceneRoot.OpenModesPanel();
-        bonusPresenter.SubmitBonus();
-
-        yield return new WaitForSeconds(5f);
-        sceneRoot.CloseModesPanel();
         ChangeStateToPause();
 
     }

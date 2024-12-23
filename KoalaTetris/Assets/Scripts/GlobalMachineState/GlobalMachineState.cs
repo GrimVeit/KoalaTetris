@@ -26,9 +26,10 @@ public class GlobalMachineState : IGlobalStateMachineControl
         states[typeof(ModesState)] = new ModesState(this, menuRoot, soundProvider, gameTypePresenter, itemsPresenter);
         states[typeof(LoseState)] = new LoseState(this, menuRoot, soundProvider, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, scorePresenter);
 
-        states[typeof(BonusState)] = new BonusState(this, menuRoot, soundProvider, bonusPresenter);
+        states[typeof(BonusState)] = new BonusState(this, menuRoot, soundProvider, bonusPresenter, scorePresenter, gameTypePresenter);
         states[typeof(BonusScoreState)] = new BonusScoreState(this, menuRoot, soundProvider, bonusPresenter);
         states[typeof(BonusDesignState)] = new BonusDesignState(this, menuRoot, soundProvider, bonusPresenter);
+        states[typeof(BonusNoneState)] = new BonusNoneState(this, menuRoot, soundProvider);
     }
 
     public void Initialize()

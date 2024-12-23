@@ -1,16 +1,18 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 [Serializable]
 public class GameTypesButton
 {
+    public Sprite SpriteActive => spriteActive;
+    public RectTransform Transform => imageButton.rectTransform;
+
     [SerializeField] private Button buttonChoose;
     [SerializeField] private Image imageButton;
     [SerializeField] private Sprite spriteActive;
     [SerializeField] private int id;
+    [SerializeField] private ScaleEffect scaleEffect;
 
     public void Initialize()
     {
@@ -26,6 +28,7 @@ public class GameTypesButton
     {
         buttonChoose.enabled = true;
         imageButton.sprite = spriteActive;
+        scaleEffect.ActivateEffect();
     }
 
     #region Input

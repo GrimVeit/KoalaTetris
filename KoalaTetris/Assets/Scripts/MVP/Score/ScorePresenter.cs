@@ -48,6 +48,8 @@ public class ScorePresenter
 
     #region Input
 
+    public int CurrentScore => scoreModel.CurrentRecord;
+
     public void AddScore(Vector3 vector, int score, int scale)
     {
         scoreView.SpawnScoreEffect(vector, score, scale);
