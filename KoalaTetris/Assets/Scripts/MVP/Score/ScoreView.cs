@@ -1,13 +1,21 @@
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class ScoreView : View
 {
+    public event Action<int> OnAddScore;
+
     [SerializeField] private List<TextMeshProUGUI> textCurrentRecord;
     [SerializeField] private List<TextMeshProUGUI> textRecord;
     [SerializeField] private GameObject displayCurrentRecord;
+    [SerializeField] private Transform transformEndScoreEffects;
+    [SerializeField] private GameObject parentScoreEffects;
+    [SerializeField] private ScoreEffect scoreEffectPrefab;
+
+    private List<ScoreEffect> scoreEffectList;
 
     private Vector3 defaultDisplay10Size;
 
@@ -38,5 +46,23 @@ public class ScoreView : View
 
         displayCurrentRecord.transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.1f).
                     OnComplete(() => displayCurrentRecord.transform.DOScale(defaultDisplay10Size, 0.2f));
+    }
+
+
+    public void SpawnScoreEffect(Vector3 vector, int score)
+    {
+        var scoreEffect = Instantiate(scoreEffectPrefab, parentScoreEffects.transform); 
+        scoreEffect.transform.SetPositionAndRotation(vector, scoreEffectPrefab.transform.rotation);
+
+        scoreEffect.OnEndMove += AddScore;
+        scoreEffect.SetScore(score);
+        scoreEffect.Play(transformEndScoreEffects);
+    }
+
+    private void AddScore(ScoreEffect scoreEffect, int score)
+    {
+        OnAddScore?.Invoke(score);
+
+        scoreEffect.DestroyEffect();
     }
 }

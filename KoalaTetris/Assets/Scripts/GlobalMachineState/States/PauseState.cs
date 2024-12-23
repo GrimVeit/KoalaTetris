@@ -42,7 +42,10 @@ public class PauseState : IGlobalState
         sceneRoot.OnRestartGame_PauseFooterPanel += ChangeStateToGame;
         sceneRoot.OnOpenModes_PauseFooterPanel += ChangeStateToModes;
 
-        sceneRoot.OpenPausePanels();
+        itemsPresenter.ActivateAnimationFail();
+
+        sceneRoot.OpenPauseHeaderPanel();
+        sceneRoot.OpenPauseFooterPanel();
     }
 
     public void ExitState()
@@ -50,7 +53,8 @@ public class PauseState : IGlobalState
         sceneRoot.OnRestartGame_PauseFooterPanel -= ChangeStateToGame;
         sceneRoot.OnOpenModes_PauseFooterPanel -= ChangeStateToModes;
 
-        sceneRoot.ClosePausePanels();
+        sceneRoot.ClosePauseHeaderPanel();
+        sceneRoot.ClosePauseFooterPanel();
     }
 
     private void ChangeStateToGame()

@@ -60,7 +60,8 @@ public class GameState : IGlobalState
         itemCatalogPresenter.SelectSecondItemData();
         fakeItemMovePresenter.ActivateSmooth();
 
-        sceneRoot.OpenGamePanels();
+        sceneRoot.OpenGameHeaderPanel();
+        sceneRoot.OpenGameFooterPanel();
 
         soundBackgroundGame.Play();
         soundBackgroundGame.SetVolume(0, 0.4f);
@@ -83,7 +84,7 @@ public class GameState : IGlobalState
 
         fakeItemMovePresenter.DeactivateSmooth();
 
-        sceneRoot.CloseGamePanels();
+        sceneRoot.CloseGameFooterPanel();
 
         soundBackgroundGame.SetVolume(0.4f, 0, soundBackgroundGame.Stop);
     }

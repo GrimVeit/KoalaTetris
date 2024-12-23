@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class GameTypesButton
 {
     [SerializeField] private Button buttonChoose;
+    [SerializeField] private Image imageButton;
+    [SerializeField] private Sprite spriteActive;
     [SerializeField] private int id;
 
     public void Initialize()
@@ -18,6 +20,12 @@ public class GameTypesButton
     public void Dispose()
     {
         buttonChoose.onClick.RemoveListener(HandleChooseType);
+    }
+
+    public void OpenGame()
+    {
+        buttonChoose.enabled = true;
+        imageButton.sprite = spriteActive;
     }
 
     #region Input

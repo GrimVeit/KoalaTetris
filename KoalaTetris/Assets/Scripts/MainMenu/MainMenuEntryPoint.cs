@@ -18,6 +18,7 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     private ItemsPresenter itemsPresenter;
     private ScorePresenter scorePresenter;
+    private BonusPresenter bonusPresenter;
 
     private TriggerZonesPresenter triggerZonesPresenter;
     private ScaleEffectPresenter scaleEffectPresenter;
@@ -55,6 +56,9 @@ public class MainMenuEntryPoint : MonoBehaviour
         scorePresenter = new ScorePresenter(new ScoreModel(soundPresenter), viewContainer.GetView<ScoreView>());
         scorePresenter.Initialize();
 
+        bonusPresenter = new BonusPresenter(new BonusModel(soundPresenter), viewContainer.GetView<BonusView>());
+        bonusPresenter.Initialize();
+
         triggerZonesPresenter = new TriggerZonesPresenter(new TriggerZonesModel(), viewContainer.GetView<TriggerZonesView>());
         triggerZonesPresenter.Initialize();
 
@@ -70,7 +74,17 @@ public class MainMenuEntryPoint : MonoBehaviour
         sceneRoot.SetParticleEffectProvider(particleEffectPresenter);
         sceneRoot.Initialize();
 
-        machineState = new GlobalMachineState(sceneRoot, soundPresenter, triggerZonesPresenter, fakeItemMovePresenter, itemCatalogPresenter, itemSpawnerPresenter, itemsPresenter, scorePresenter, gameTypePresenter);
+        machineState = new GlobalMachineState(
+            sceneRoot, 
+            soundPresenter, 
+            triggerZonesPresenter, 
+            fakeItemMovePresenter, 
+            itemCatalogPresenter, 
+            itemSpawnerPresenter, 
+            itemsPresenter, 
+            scorePresenter, 
+            gameTypePresenter, 
+            bonusPresenter);
         machineState.Initialize();
 
         adaptiveScreenPresenter = new AdaptiveScreenPresenter(new AdaptiveScreenModel());
@@ -93,6 +107,9 @@ public class MainMenuEntryPoint : MonoBehaviour
         gameTypePresenter.OnChooseGameType_Value += itemCatalogPresenter.SetItemDatas;
         gameTypePresenter.OnChooseGameType_Value += itemSpawnerPresenter.SetItems;
         gameTypePresenter.OnChooseGameType_Value += designPresenter.SetDesign;
+
+        bonusPresenter.OnUnlockGame_ID += gameTypePresenter.UnlockGame;
+        bonusPresenter.OnScoreMultiplier_Size += scorePresenter.SetMultiplier;
     }
 
     private void DeactivateGlobalEvents()
@@ -103,6 +120,9 @@ public class MainMenuEntryPoint : MonoBehaviour
         gameTypePresenter.OnChooseGameType_Value -= itemCatalogPresenter.SetItemDatas;
         gameTypePresenter.OnChooseGameType_Value -= itemSpawnerPresenter.SetItems;
         gameTypePresenter.OnChooseGameType_Value -= designPresenter.SetDesign;
+
+        bonusPresenter.OnUnlockGame_ID -= gameTypePresenter.UnlockGame;
+        bonusPresenter.OnScoreMultiplier_Size -= scorePresenter.SetMultiplier;
     }
 
     private void Dispose()
@@ -116,6 +136,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         itemSpawnerPresenter?.Dispose();
         itemsPresenter?.Dispose();
         scorePresenter?.Dispose();
+        bonusPresenter?.Dispose();
 
         triggerZonesPresenter?.Dispose();
         scaleEffectPresenter?.Dispose();

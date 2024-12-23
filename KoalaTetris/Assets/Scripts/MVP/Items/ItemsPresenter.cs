@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemsPresenter
@@ -40,7 +38,7 @@ public class ItemsPresenter
         remove { itemsModel.OnAddNewItem -= value; }
     }
 
-    public event Action<int> OnAddScore
+    public event Action<Vector3, int> OnAddScore
     {
         add { itemsModel.OnAddScore += value; }
         remove { itemsModel.OnAddScore -= value; }

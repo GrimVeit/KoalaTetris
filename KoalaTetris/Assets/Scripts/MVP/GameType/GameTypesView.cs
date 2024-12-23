@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameTypesView : View
@@ -22,6 +23,11 @@ public class GameTypesView : View
             gameTypesButtons[i].OnChooseTypeGame -= HandleChooseType;
             gameTypesButtons[i].Dispose();
         }
+    }
+
+    public void OpenGame(int id)
+    {
+        gameTypesButtons[id].OpenGame();
     }
 
     #region Input

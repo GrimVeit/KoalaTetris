@@ -10,7 +10,6 @@ public class LoseState : IGlobalState
     private ItemCatalogPresenter itemCatalogPresenter;
     private ItemSpawnerPresenter itemSpawnerPresenter;
 
-    private ItemsPresenter itemsPresenter;
     private ScorePresenter scorePresenter;
 
     private IGlobalStateMachineControl globalStateMachineControl;
@@ -25,7 +24,6 @@ public class LoseState : IGlobalState
         FakeItemMovePresenter fakeItemMovePresenter,
         ItemCatalogPresenter itemCatalogPresenter,
         ItemSpawnerPresenter itemSpawnerPresenter,
-        ItemsPresenter itemsPresenter,
         ScorePresenter scorePresenter)
     {
         this.globalStateMachineControl = globalStateMachineControl;
@@ -34,7 +32,6 @@ public class LoseState : IGlobalState
         this.fakeItemMovePresenter = fakeItemMovePresenter;
         this.itemCatalogPresenter = itemCatalogPresenter;
         this.itemSpawnerPresenter = itemSpawnerPresenter;
-        this.itemsPresenter = itemsPresenter;
         this.scorePresenter = scorePresenter;
 
         soundFailGame = soundProvider.GetSound("FailGame");
@@ -42,42 +39,19 @@ public class LoseState : IGlobalState
 
     public void EnterState()
     {
-        sceneRoot.OnRestartGame_PauseFooterPanel += ChangeStateToGame;
-        sceneRoot.OnOpenModes_PauseFooterPanel += ChangeStateToModes;
-
         soundFailGame.PlayOneShot();
 
-        sceneRoot.OpenPausePanels();
-
         soundFailGame.Play();
-        soundFailGame.SetVolume(0, 0.6f);
-
-        itemsPresenter.ActivateAnimationFail();
+        soundFailGame.SetVolume(0, 0.6f, ChangeStateToChooseBonus);
     }
 
     public void ExitState()
     {
-        sceneRoot.OnRestartGame_PauseFooterPanel -= ChangeStateToGame;
-        sceneRoot.OnOpenModes_PauseFooterPanel -= ChangeStateToModes;
-
-        sceneRoot.ClosePausePanels();
-
-        soundFailGame.SetVolume(0.6f, 0, soundFailGame.Stop);
+        //soundFailGame.SetVolume(0.6f, 0, soundFailGame.Stop);
     }
 
-    private void ChangeStateToGame()
+    private void ChangeStateToChooseBonus()
     {
-        soundProvider.PlayOneShot("Button");
-
-        itemsPresenter.RemoveAllItems();
-
-        globalStateMachineControl.SetState(globalStateMachineControl.GetState<GameState>());
-    }
-
-    private void ChangeStateToModes()
-    {
-        soundProvider.PlayOneShot("Button");
-
-        globalStateMachineControl.SetState(globalStateMachineControl.GetState<ModesState>());
+        globalStateMachineControl.SetState(globalStateMachineControl.GetState<BonusState>());
     }
 }

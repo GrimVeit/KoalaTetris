@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ItemsModel
 {
-    public event Action<int> OnAddScore;
+    //public event Action<int> OnAddScore;
+    public event Action<Vector3, int> OnAddScore;
     public event Action<int, Vector3, Quaternion> OnAddNewItem;
 
     private List<Item> items = new List<Item>();
@@ -77,6 +78,6 @@ public class ItemsModel
         soundProvider.PlayOneShotRandom("Bubble");
 
         OnAddNewItem?.Invoke(id + 1, position, Quaternion.Slerp(quaternion1, quaternion2, 0.5f));
-        OnAddScore?.Invoke(score);
+        OnAddScore?.Invoke(position, score);
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 public class GameTypePresenter
 {
@@ -30,12 +29,16 @@ public class GameTypePresenter
 
     private void ActivateEvents()
     {
-        view.OnChooseType += model.ChooseTypeGame;
+        view.OnChooseType += model.SelectGame;
+
+        model.OnOpenGameType += view.OpenGame;
     }
 
     private void DeactivateEvents()
     {
-        view.OnChooseType -= model.ChooseTypeGame;
+        view.OnChooseType -= model.SelectGame;
+
+        model.OnOpenGameType -= view.OpenGame;
     }
 
     #region Input
@@ -50,6 +53,11 @@ public class GameTypePresenter
     {
         add { model.OnChooseGameType += value; }
         remove { model.OnChooseGameType -= value; }
+    }
+
+    public void UnlockGame(int id)
+    {
+        model.UnlockGame(id);
     }
 
     #endregion

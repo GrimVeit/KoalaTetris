@@ -5,20 +5,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DailyBonusView : View
+public class BonusView : View
 {
     public event Action<float> OnSpin;
     public event Action OnEndSpin;
     public event Action OnClickSpinButton;
-    public event Action<int> OnGetBonus;
+    public event Action<Transform, Bonus> OnGetBonus;
 
     [SerializeField] private List<Bonus> bonuses = new List<Bonus>();
 
     [SerializeField] private TextMeshProUGUI textCoins;
     [SerializeField] private Button buttonDailyBonus;
-    [SerializeField] private Image buttonDailyBonusImage;
-    [SerializeField] private Sprite dailyBonusAvailableSprite;
-    [SerializeField] private Sprite dailyBonusUnvailableSprite;
     [SerializeField] private Vector3 spinVector;
     [SerializeField] private Transform spinTransform;
     [SerializeField] private Transform centerPoint;
@@ -41,17 +38,17 @@ public class DailyBonusView : View
 
     public void DeactivateSpinButton() 
     {
-        buttonDailyBonusImage.sprite = dailyBonusUnvailableSprite;
+        buttonDailyBonus.gameObject.SetActive(false);
     }
 
     public void ActivateSpinButton()
     {
-        buttonDailyBonusImage.sprite = dailyBonusAvailableSprite;
+        buttonDailyBonus.gameObject.SetActive(true);
     }
 
-    public void DisplayCoins(int coins)
+    public void DisplayDescription(string description)
     {
-        textCoins.text = coins.ToString();
+        textCoins.text = description;
     }
 
 
@@ -87,8 +84,8 @@ public class DailyBonusView : View
         }
 
         Bonus bonus = GetClosestBonus();
-        Debug.Log(bonus.Coins);
-        OnGetBonus?.Invoke(bonus.Coins);
+        Debug.Log(bonus.Value);
+        OnGetBonus?.Invoke(textCoins.transform, bonus);
         OnEndSpin?.Invoke();
     }
 

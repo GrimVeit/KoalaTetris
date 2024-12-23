@@ -1,4 +1,7 @@
 using System;
+using System.Numerics;
+using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 public class ScorePresenter
 {
@@ -29,17 +32,26 @@ public class ScorePresenter
 
     private void ActivateEvents()
     {
+        scoreView.OnAddScore += scoreModel.AddScore;
+
         scoreModel.OnChangeRecordScore += scoreView.DisplayRecord;
         scoreModel.OnChangeCurrentScore += scoreView.DisplayCurrentRecord;
     }
 
     private void DeactivateEvents()
     {
+        scoreView.OnAddScore -= scoreModel.AddScore;
+
         scoreModel.OnChangeRecordScore -= scoreView.DisplayRecord;
         scoreModel.OnChangeCurrentScore -= scoreView.DisplayCurrentRecord;
     }
 
     #region Input
+
+    public void AddScore(Vector3 vector, int score)
+    {
+        scoreView.SpawnScoreEffect(vector, score);
+    }
 
     public void AddScore(int score)
     {
@@ -49,6 +61,16 @@ public class ScorePresenter
     public void ClearScore()
     {
         scoreModel.ClearScore();
+    }
+
+    public void SetMultiplier(Vector3 vector, int size)
+    {
+        Debug.Log(size);
+        Debug.Log(scoreModel.CurrentRecord.ToString());
+
+        scoreView.SpawnScoreEffect(vector, scoreModel.CurrentRecord * (size - 1)); 
+
+        //scoreModel.SetMultiplier(size);
     }
 
     #endregion

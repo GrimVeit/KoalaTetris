@@ -7,7 +7,7 @@ public class ScoreModel
     public event Action<int> OnChangeCurrentScore;
 
     private int record;
-    private int currentRecord = 0;
+    public int CurrentRecord { get; private set; }
 
     private ISoundProvider soundProvider;
      
@@ -21,7 +21,7 @@ public class ScoreModel
         record = PlayerPrefs.GetInt(PlayerPrefsKeys.GAME_RECORD);
 
         OnChangeRecordScore?.Invoke(record);
-        OnChangeCurrentScore?.Invoke(currentRecord);
+        OnChangeCurrentScore?.Invoke(CurrentRecord);
     }
 
 
@@ -32,20 +32,33 @@ public class ScoreModel
 
     public void AddScore(int score)
     {
-        currentRecord += score;
+        CurrentRecord += score;
 
-        OnChangeCurrentScore?.Invoke(currentRecord);
+        OnChangeCurrentScore?.Invoke(CurrentRecord);
 
-        if(currentRecord >= record)
+        if(CurrentRecord >= record)
         {
-            record = currentRecord;
+            record = CurrentRecord;
             OnChangeRecordScore?.Invoke(record);
         }
     }
 
+    //public void SetMultiplier(int size)
+    //{
+    //    CurrentRecord *= size;
+
+    //    OnChangeCurrentScore?.Invoke(CurrentRecord);
+
+    //    if (CurrentRecord >= record)
+    //    {
+    //        record = CurrentRecord;
+    //        OnChangeRecordScore?.Invoke(record);
+    //    }
+    //}
+
     public void ClearScore()
     {
-        currentRecord = 0;
-        OnChangeCurrentScore?.Invoke(currentRecord);
+        CurrentRecord = 0;
+        OnChangeCurrentScore?.Invoke(CurrentRecord);
     }
 }

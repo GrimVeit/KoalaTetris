@@ -9,8 +9,10 @@ public class UIMainMenuRoot : MonoBehaviour
     [SerializeField] private HeaderPanel pauseHeaderPanel;
     [SerializeField] private FooterPanel gameFooterPanel;
     [SerializeField] private PauseFooterPanel pauseFooterPanel;
-
+    [SerializeField] private ChooseBonusPanel chooseBonusPanel;
+    [SerializeField] private BonusPanel bonusPanel;
     [SerializeField] private ModesPanel modesPanel;
+    [SerializeField] private Panel blockPanel;
 
     private Panel currentPanel;
 
@@ -24,8 +26,10 @@ public class UIMainMenuRoot : MonoBehaviour
         pauseHeaderPanel.Initialize();
         gameFooterPanel.Initialize();
         pauseFooterPanel.Initialize();
-
         modesPanel.Initialize();
+        chooseBonusPanel.Initialize();
+        bonusPanel.Initialize();
+        blockPanel.Initialize();
     }
 
     public void Activate()
@@ -56,8 +60,10 @@ public class UIMainMenuRoot : MonoBehaviour
         pauseHeaderPanel.Dispose();
         gameFooterPanel.Dispose();
         pauseFooterPanel.Dispose();
-
         modesPanel.Dispose();
+        chooseBonusPanel.Dispose();
+        bonusPanel.Dispose();
+        blockPanel.Dispose();
     }
 
     public void OpenMainMenuPanel()
@@ -72,6 +78,18 @@ public class UIMainMenuRoot : MonoBehaviour
 
 
 
+    public void OpenBlockPanel()
+    {
+        OpenOtherPanel(blockPanel);
+    }
+
+    public void CloseBlockPanel()
+    {
+        CloseOtherPanel(blockPanel);
+    }
+
+
+
     public void OpenModesPanel()
     {
         OpenOtherPanel(modesPanel);
@@ -82,29 +100,75 @@ public class UIMainMenuRoot : MonoBehaviour
         CloseOtherPanel(modesPanel);
     }
 
-    public void OpenGamePanels()
+
+
+    public void OpenGameHeaderPanel()
     {
         OpenOtherPanel(gameHeaderPanel);
+    }
+
+    public void OpenGameFooterPanel()
+    {
         OpenOtherPanel(gameFooterPanel);
     }
 
-    public void CloseGamePanels()
+    public void CloseGameHeaderPanel()
     {
         CloseOtherPanel(gameHeaderPanel);
+    }
+
+    public void CloseGameFooterPanel()
+    {
         CloseOtherPanel(gameFooterPanel);
     }
 
-    public void OpenPausePanels()
+
+
+
+    public void OpenPauseHeaderPanel()
     {
         OpenOtherPanel(pauseHeaderPanel);
+    }
+
+    public void OpenPauseFooterPanel()
+    {
         OpenOtherPanel(pauseFooterPanel);
     }
 
-    public void ClosePausePanels()
+    public void ClosePauseHeaderPanel()
     {
         CloseOtherPanel(pauseHeaderPanel);
+    }
+
+    public void ClosePauseFooterPanel()
+    {
         CloseOtherPanel(pauseFooterPanel);
     }
+
+    public void OpenChooseBonusFooterPanel()
+    {
+        OpenOtherPanel(chooseBonusPanel);
+    }
+
+    public void CloseChooseBonusFooterPanel()
+    {
+        CloseOtherPanel(chooseBonusPanel);
+    }
+
+
+    
+
+    public void OpenBonusPanel()
+    {
+        OpenOtherPanel(bonusPanel);
+    }
+
+    public void CloseBonusPanel()
+    {
+        CloseOtherPanel(bonusPanel);
+    }
+
+
 
 
     private void OpenPanel(Panel panel)
@@ -146,6 +210,29 @@ public class UIMainMenuRoot : MonoBehaviour
     {
         add { modesPanel.OnClickToBack += value; }
         remove { modesPanel.OnClickToBack -= value; }
+    }
+
+
+
+
+    public event Action OnClickToOpenBonusPanel_ChooseBonusPanel
+    {
+        add { chooseBonusPanel.OnClickToOpenBonusPanel += value; }
+        remove { chooseBonusPanel.OnClickToOpenBonusPanel -= value; }
+    }
+
+    public event Action OnClickToNoThankOpenBonusPanel_ChoosebonusPanel
+    {
+        add { chooseBonusPanel.OnClickToNoThankOpenBonusPanel += value; }
+        remove { chooseBonusPanel.OnClickToNoThankOpenBonusPanel -= value; }
+    }
+
+
+
+    public event Action OnBack_BonusPanel
+    {
+        add { bonusPanel.OnClickToBack += value; }
+        remove { bonusPanel.OnClickToBack -= value; }
     }
 
     #endregion

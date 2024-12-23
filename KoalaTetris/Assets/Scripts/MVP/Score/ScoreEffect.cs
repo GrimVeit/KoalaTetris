@@ -1,0 +1,33 @@
+using DG.Tweening;
+using System;
+using TMPro;
+using UnityEngine;
+
+public class ScoreEffect : MonoBehaviour
+{
+    public event Action<ScoreEffect, int> OnEndMove;
+
+    [SerializeField] private TextMeshProUGUI textScore;
+
+    private int score;
+
+    public void SetScore(int score)
+    {
+        this.score = score;
+
+        textScore.text = "+" + score.ToString();
+    }
+
+    public void Play(Transform transform)
+    {
+        this.transform.DOLocalMove(transform.localPosition, 0.5f).OnComplete(() =>
+        {
+            OnEndMove?.Invoke(this, score);
+        });
+    }
+
+    public void DestroyEffect()
+    {
+        Destroy(gameObject);
+    }
+}
